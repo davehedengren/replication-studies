@@ -1,0 +1,11 @@
+check,result,status
+Cluster at municipality (Table 2),SEs change but conclusions hold,Robust
+Leave-one-mun-out (Overall Index),"Range [0.113, 0.137], all positive",Robust
+Placebo: treatment on 2011 expenditure,"beta=-3.346, p=0.775",Pass
+Quadratic rainfall (Table 3),Rainfall²=-0.003 (SE=0.006),Robust
+Year-specific treatment effects,"2012: -0.027, 2013: -0.040",Robust
+Heterogeneity by municipality size,Treatment effect consistent across large/small municipalities,Robust
+Public vs private goods comparison,Rainfall effect concentrated on private goods,Robust
+Winsorized vulnerability indices,Coefficients stable under winsorization,Robust
+Voting: exclude small locations,"Full: -0.101, Large: -0.066",Robust
+Excluding water from requests,Treatment×Freq interaction similar with/without water,Robust

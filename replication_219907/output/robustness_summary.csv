@@ -1,0 +1,8 @@
+Check,Description,Finding,Status
+1,Alternative HHI measures,HHI_nl and n_firms show similar patterns,Robust
+2,Informal SE only,Results hold for informal self-employment,Robust
+3,Formal vs informal WW,Both types respond to concentration,Informative
+4,Census validation,EEA HHI correlates with census HHI,Validation
+5,Variance decomposition,HHI varies within and across locations,Informative
+6,Year-by-year OLS,Coefficient stable across years,Robust
+7,SE rate by industry,Wide variation across manufacturing industries,Informative

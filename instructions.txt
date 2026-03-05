@@ -1,0 +1,86 @@
+Replication Study Instructions
+==============================
+
+Given a paper's replication package (code, data, and published PDF), conduct a
+full replication study. Follow these five phases in order.
+
+WORKFLOW: Before starting, create a task list (using TaskCreate) with one task
+per phase/file. Then work through each task sequentially — mark it in_progress
+when you start, completed when you finish, and check TaskList between tasks to
+stay on track. This keeps progress visible and ensures nothing is skipped.
+
+PHASE 1: ORIENTATION
+- Read the README, published PDF, and all source code files.
+- Identify the original language (Stata, R, etc.), key datasets, main tables/figures,
+  and the estimation strategy (OLS, DiD, IV, RDD, synthetic control, etc.).
+- Note any code bugs, missing files, or undocumented dependencies.
+
+PHASE 2: TRANSLATE & REPRODUCE
+- Create a working directory: replication_{paper_id}/
+- Write a utils.py with shared paths, variable lists, and helper functions.
+- Translate each analysis script into Python (numpy, pandas, statsmodels, scipy,
+  matplotlib). Name files 01_clean.py, 02_figure1.py, 03_tables.py, etc.
+- If the original uses an estimator without a Python equivalent (e.g., synthdid),
+  use the closest available method (e.g., TWFE DiD) and document the difference.
+- Match the original sample construction exactly: filters, exclusions, missing data
+  handling, variable transformations.
+- Run each script. Compare every output (coefficients, SEs, p-values, N, means)
+  to published values. Report matches and discrepancies with magnitudes.
+
+PHASE 3: DATA AUDIT
+- Write a data audit script checking:
+  - Coverage: obs count, country/unit count, year/time range, variable completeness
+  - Distributions: summary stats, plausibility bounds, outliers (IQR + top-10 ranges)
+  - Logical consistency: e.g., sub-counts ≤ totals, shares in [0,1], valid date ordering
+  - Missing data patterns: by treatment status, by group, systematic vs random
+  - Panel balance: gaps, uneven coverage across units
+  - Duplicates and coding anomalies
+
+PHASE 4: ROBUSTNESS CHECKS
+- Write a robustness script with 8-12 checks. Good defaults:
+  1. Alternative treatment definition or timing
+  2. Restrict sample to subgroup (e.g., drop one region, post-period only)
+  3. Drop potential outlier units
+  4. Placebo/permutation test (shuffle treatment, compute p-value)
+  5. Winsorize or trim extreme outcome values
+  6. Placebo outcome (variable that shouldn't be affected)
+  7. Subgroup heterogeneity (by region, income, etc.)
+  8. Leave-one-group-out sensitivity
+  9. Alternative standard errors (cluster level, HC1 vs HC3)
+  10. Alternative functional form (logs, IHS transform)
+- Tailor checks to the paper's specific method and claims.
+
+PHASE 5: WRITEUP
+- Save writeup as writeup_{paper_id}.md inside the replication folder.
+- Structure:
+  0. TLDR (required, placed immediately after the header/metadata block)
+     - Replication status: one sentence on whether results match
+     - Key finding confirmed/challenged: one sentence on the main result
+     - Main concern: one sentence on the most important robustness or data issue
+     - Bug status: one sentence — either "No coding bugs found." or a brief
+       description of the bug and whether it changes qualitative conclusions
+     - Bottom line (if a bug was found): one sentence on overall implications
+  1. Paper summary (research question, data, method, key findings)
+  2. Methodology notes (translation choices, estimator differences)
+  3. Replication results (side-by-side comparison tables with published values)
+  4. Data audit findings (anomalies, coverage issues, quality assessment)
+  4a. Bug impact analysis (required if any coding bug is found):
+      - Description of the bug with exact code lines
+      - Table of affected vs unaffected published results (every table/figure)
+      - Quantitative impact (how much estimates change when bug is fixed)
+      - List of specific statements in the paper that would need revision
+      - List of what does NOT change (to bound the scope of the problem)
+  5. Robustness check results (which findings survive, which are fragile)
+  6. Summary assessment (what replicates, what doesn't, key concerns)
+  7. File manifest
+
+TECHNICAL NOTES
+- Use python3 from the system or a venv. Check which python has numpy/pandas/
+  statsmodels before running. Install into a venv if needed.
+- When using pd.concat, always reset_index(drop=True) first to avoid NaN from
+  index misalignment.
+- Stata's robust SEs (,r) = HC1 in statsmodels. Stata's cluster SEs =
+  cov_type='cluster' in statsmodels.
+- For Stata .dta files: use pd.read_stata() with convert_categoricals=False to
+  get numeric codes instead of string labels.
+- Always match the published sample size as a first validation check.

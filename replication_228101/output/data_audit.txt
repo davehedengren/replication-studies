@@ -1,0 +1,241 @@
+Data loaded: 1487 observations
+
+================================================================================
+  1. OUTLIER DETECTION
+================================================================================
+
+Variable                                 N       Mean         SD        Min        P25     Median        P75        Max  IQR Out
+-------------------------------------------------------------------------------------------------------------------------------------------------
+Profit last month (GHS)               1405     2869.4     6159.9        0.0        0.0     1300.0     3000.0   120000.0      125
+Sales last month (GHS)                1412     8951.8    31505.1        0.0        0.0     3000.0     7000.0   868267.0      150
+Hours worked at business              1432       22.5       17.8        0.0        8.0       20.0       35.0      168.0        8
+Hours worked for salary               1442       17.3       19.6        0.0        0.0        0.0       40.0       84.0        0
+Hours caregiving                      1414       10.6       15.3        0.0        0.0        5.0       15.0      168.0       89
+Total workers                         1487        3.3        5.4        0.0        0.0        2.0        4.0       95.0       58
+Female workers                        1092        1.3        2.7        0.0        0.0        1.0        2.0       54.0       34
+Years in operation                    1487        7.1        5.0        0.0        4.0        6.0        9.0       42.0       76
+Age                                   1487       35.3        7.3       18.0       30.0       34.0       39.0       82.0       35
+Number of children                    1444        1.6        1.7        0.0        0.0        1.0        3.0       10.0        9
+# people helped                       1444        0.7        0.8        0.0        0.0        0.5        1.0        5.0       35
+# business owners meet                1439        1.9       11.3        0.0        0.0        0.0        2.0      400.0       79
+# collaborations                      1441        6.2       19.8        0.0        0.0        2.0        6.0      504.0      143
+# suppliers                           1438        1.4        1.5        0.0        1.0        1.0        2.0       20.0       93
+# clients                             1436        2.6        5.7        0.0        0.0        2.0        3.0      150.0      101
+
+Variables with IQR outliers:
+  Profit last month (GHS): 125 outliers (max=120000.0, upper fence=7500.0)
+  Sales last month (GHS): 150 outliers (max=868267.0, upper fence=17500.0)
+  Hours worked at business: 8 outliers (max=168.0, upper fence=75.5)
+  Hours caregiving: 89 outliers (max=168.0, upper fence=37.5)
+  Total workers: 58 outliers (max=95.0, upper fence=10.0)
+  Female workers: 34 outliers (max=54.0, upper fence=5.0)
+  Years in operation: 76 outliers (max=42.0, upper fence=16.5)
+  Age: 35 outliers (max=82.0, upper fence=52.5)
+  Number of children: 9 outliers (max=10.0, upper fence=7.5)
+  # people helped: 35 outliers (max=5.0, upper fence=2.5)
+  # business owners meet: 79 outliers (max=400.0, upper fence=5.0)
+  # collaborations: 143 outliers (max=504.0, upper fence=15.0)
+  # suppliers: 93 outliers (max=20.0, upper fence=3.5)
+  # clients: 101 outliers (max=150.0, upper fence=7.5)
+
+Top 10 profit values:
+ caseid   profit  female  age  years_operation  workers_total
+5030196 120000.0     0.0   32                2            4.0
+5092212  64000.0     0.0   33               20            0.0
+5738698  58000.0     0.0   43                5           10.0
+5014803  43800.0     0.0   38                4            3.0
+5046777  40000.0     0.0   38                6            2.0
+5417327  40000.0     1.0   32                5           21.0
+5074173  38000.0     0.0   27                5            4.0
+5393020  35000.0     0.0   35                3            7.0
+5794125  30000.0     0.0   27                2            8.0
+5792261  30000.0     0.0   39                3           33.0
+
+================================================================================
+  2. LOGICAL CONSISTENCY CHECKS
+================================================================================
+
+workers_female > workers_total: 1 cases
+      caseid  workers_female  workers_total
+367  5942373             3.0            2.0
+
+Total hours (business + salary + childcare) > 168/week: 2 cases
+      caseid  hours_business  hours_salary  hours_childcare  total_hours
+351  5438425            42.0          56.0            160.0        258.0
+626  5568459            96.0           0.0            168.0        264.0
+Total hours > 100/week: 42 cases
+
+Share variables outside [0,1]:
+  share_business_help_women: OK
+  share_business_help_friendrel: OK
+  share_meet_business_women: OK
+  share_meet_business_friendrel: OK
+  share_suppliers_impt_women: OK
+  share_suppliers_impt_friendrel: OK
+  share_clients_impt_women: OK
+  share_clients_impt_friendrel: OK
+  workers_female_share: OK
+
+Started business before age 10 (age - years_operation < 10): 5 cases
+      caseid  age  years_operation  age_at_start
+102  5302665   28               28             0
+192  5905906   34               28             6
+600  5048726   34               25             9
+725  5396584   20               12             8
+757  5091396   25               20             5
+Started business before age 15: 21 cases
+
+Total logical issues found: 8
+
+================================================================================
+  3. MISSING DATA PATTERNS BY GENDER
+================================================================================
+
+Variable                                       All %miss   Male %miss  Female %miss     Diff
+-----------------------------------------------------------------------------------------------
+profit                                               5.5          4.5           9.7     -5.2 ***
+years_operation                                      0.0          0.0           0.0      0.0
+workers_total                                        0.0          0.0           0.0      0.0
+business_at_home                                     2.9          2.3           5.4     -3.1 *
+hours_business                                       3.7          3.0           6.8     -3.8 *
+hours_salary                                         3.0          2.4           5.8     -3.3 *
+hours_childcare                                      4.9          4.1           8.6     -4.6 *
+business_help_n                                      2.9          2.3           5.4     -3.1 *
+meet_other_business                                  2.9          2.3           5.4     -3.1 *
+meet_other_business_n                                3.2          2.7           5.4     -2.6 *
+business_association                                 2.9          2.3           5.4     -3.1 *
+total_collab                                         3.1          2.6           5.4     -2.8 *
+suppliers_n                                          3.3          2.7           5.8     -3.0 *
+clients_n                                            3.4          2.7           6.8     -4.2 *
+share_business_help_women                           51.4         51.1          52.9     -1.8
+share_meet_business_women                           62.3         60.4          69.8     -9.4 ***
+share_suppliers_impt_women                          25.4         25.0          27.0     -2.0
+share_clients_impt_women                            36.4         35.6          40.3     -4.7 *
+business_network_index                               2.9          2.3           5.4     -3.1 *
+business_network_female_index                       13.3         13.1          14.4     -1.3
+business_network_friendrel_index                    15.5         15.2          16.5     -1.4
+collegedegree                                        3.1          2.5           5.8     -3.3 *
+married                                              2.9          2.3           5.4     -3.1 *
+children                                             2.9          2.3           5.4     -3.1 *
+
+Total observations                                               1201           278
+
+Chi-squared tests for systematic missingness by gender:
+  profit                                   chi2=10.878, p=0.001
+  business_network_index                   chi2=6.463, p=0.011
+  business_network_female_index            chi2=0.234, p=0.628
+  hours_childcare                          chi2=9.027, p=0.003
+  collegedegree                            chi2=6.905, p=0.009
+
+================================================================================
+  4. DUPLICATE DETECTION
+================================================================================
+
+Total rows: 1487
+Unique caseids: 1487
+Duplicate caseids: 0
+
+Rows with identical (gender, age, years_operation, profit): 203
+
+================================================================================
+  5. DISTRIBUTION ANOMALIES
+================================================================================
+
+Profit heaping (round numbers):
+  divisible by 1000: 861/1405 (61.3%)
+  divisible by 500: 1051/1405 (74.8%)
+  divisible by 100: 1341/1405 (95.4%)
+  Zero profit: 411/1405 (29.3%)
+  Negative profit: 0/1405 (0.0%)
+
+Sales heaping:
+  divisible by 1000: 1030/1412 (72.9%)
+  divisible by 500: 1180/1412 (83.6%)
+
+Hours distributions:
+
+  Business hours (N=1432):
+         0:   222 (15.5%)
+        20:   109 (7.6%)
+        30:   105 (7.3%)
+        40:    89 (6.2%)
+        10:    74 (5.2%)
+        35:    64 (4.5%)
+        15:    58 (4.1%)
+        25:    55 (3.8%)
+        12:    54 (3.8%)
+        24:    40 (2.8%)
+
+  Salary hours (N=1442):
+         0:   738 (51.2%)
+        40:   311 (21.6%)
+        30:    58 (4.0%)
+        35:    51 (3.5%)
+        45:    23 (1.6%)
+        15:    20 (1.4%)
+        50:    20 (1.4%)
+        48:    20 (1.4%)
+        36:    19 (1.3%)
+        20:    19 (1.3%)
+
+  Childcare hours (N=1414):
+         0:   586 (41.4%)
+        10:   132 (9.3%)
+        20:    69 (4.9%)
+        15:    64 (4.5%)
+        14:    55 (3.9%)
+         7:    42 (3.0%)
+        30:    38 (2.7%)
+         5:    37 (2.6%)
+         2:    35 (2.5%)
+        12:    31 (2.2%)
+
+Skewness and Kurtosis:
+  profit                          skewness=    7.99  kurtosis=  110.66
+  sales_lastmonth                 skewness=   17.45  kurtosis=  420.01
+  hours_business                  skewness=    1.02  kurtosis=    3.12
+  workers_total                   skewness=    8.71  kurtosis=  118.11
+
+================================================================================
+  6. CODING ERROR CHECKS
+================================================================================
+
+Binary variable checks (should be 0/1/NaN only):
+  female                              0= 1201  1=  278  NA=    8  OK
+  collegedegree                       0=  459  1=  982  NA=   46  OK
+  married                             0=  608  1=  836  NA=   43  OK
+  business_primary_inc                0=  506  1=  938  NA=   43  OK
+  work_for_pay                        0=  661  1=  783  NA=   43  OK
+  business_at_home                    0= 1239  1=  205  NA=   43  OK
+  export                              0= 1424  1=   20  NA=   43  OK
+  any_business_help                   0=  722  1=  722  NA=   43  OK
+  business_association                0= 1185  1=  259  NA=   43  OK
+  meet_other_business                 0=  877  1=  567  NA=   43  OK
+  product_aginput                     0= 1378  1=   66  NA=   43  OK
+  product_livestock                   0= 1010  1=  434  NA=   43  OK
+  product_crop                        0=  453  1=  991  NA=   43  OK
+  product_cocoa                       0= 1298  1=  146  NA=   43  OK
+  product_forestry                    0= 1422  1=   22  NA=   43  OK
+  product_fish                        0= 1384  1=   60  NA=   43  OK
+  product_processed                   0= 1352  1=   92  NA=   43  OK
+  product_other                       0= 1372  1=   72  NA=   43  OK
+
+Count variable checks (should be >= 0):
+  business_help_n                     min=     0.0  max=     5.0  OK
+  meet_other_business_n               min=     0.0  max=   400.0  OK
+  total_collab                        min=     0.0  max=   504.0  OK
+  suppliers_n                         min=     0.0  max=    20.0  OK
+  clients_n                           min=     0.0  max=   150.0  OK
+  workers_total                       min=     0.0  max=    95.0  OK
+  workers_female                      min=     0.0  max=    54.0  OK
+  children                            min=     0.0  max=    10.0  OK
+  years_operation                     min=     0.0  max=    42.0  OK
+
+
+CODE BUG NOTE:
+  output.do references 'profit' but clean.do creates 'profits_lastmonth'.
+  Variable 'profit' does not exist in raw data nor is created in clean.do.
+  Our Python code creates 'profit' as an alias of 'profits_lastmonth' (g6).
+  profit N=1405, mean=2869.38
+  profits_lastmonth N=1405, mean=2869.38
+  Values match: True

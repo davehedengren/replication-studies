@@ -1,0 +1,8 @@
+Check,Description,Finding,Status
+1,Alternative GDP measures,"HP/FD consistent, BK if available",Robust
+2,Alternative time windows,20-year and 5-year OECD data,Informative
+3,Leave-one-decade-out,Coefficient stable across decades,Robust
+4,Total trade only,Combined index also significant,Informative
+5,Leave-one-country-out,No single country drives result,Robust
+6,Additional controls,"Sector similarity, third-country",Robust
+7,Intermediate only,No final goods control,Informative

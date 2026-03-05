@@ -1,0 +1,12 @@
+,0
+individual_n,2990
+household_n,1308
+stacked_n,5334
+voting_n,1794
+municipalities,40
+clusters,425
+treatment_rate_indiv,0.4745819397993311
+treatment_rate_hh,0.4701834862385321
+voting_21_sample,909
+voting_39_sample,1641
+data_version_discrepancy,True

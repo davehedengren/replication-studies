@@ -1,0 +1,7 @@
+Check,Description,Finding,Status
+1,Nordic Gini weighting,Pop-weighted vs equal: <0.003 difference,Robust
+2,OECD average completeness,All vs complete cases: negligible difference,Robust
+3,Gini temporal stability,Nordic Gini stable 2012-2019,Robust
+4,Nordic avg LOO (GDP),Range across 3-country subsets: 49-58K GDP/capita,Robust
+5,Nordic union density LOO,Stable across 3-country subsets,Robust
+6,Redistribution gap ranking,Nordic countries in top 10 for redistribution,Informative

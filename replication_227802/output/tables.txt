@@ -1,0 +1,2 @@
+See console output for formatted tables
+TWFE DiD results - comparison with published synthetic DiD

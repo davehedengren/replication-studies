@@ -1,0 +1,9 @@
+Check,Description,Finding,Status
+1,OLS decile coefficients,MPC decreasing in cash-on-hand; small > large for low cash,Robust
+2,Income/asset quintiles,Same pattern across income and asset quintiles,Robust
+3,Financial literacy,Pattern holds for high and low literacy,Robust
+4,Comprehension,Pattern robust to high-comprehension subsample,Robust
+5,North vs South,Pattern holds in both regions,Robust
+6,Extensive margin,Pr(MPC=0) rising with cash; Pr(MPC=1) falling with cash,Informative
+7,Eating out share,Positive correlation between non-essential spending and MPC,Informative
+8,Demographics,MPC difference positive across all demographic subgroups,Robust

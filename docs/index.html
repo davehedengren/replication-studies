@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AERs for AERs &mdash; AI Economic Replication Studies</title>
+  <meta name="description" content="Systematic AI-driven replications of 32 American Economic Review papers using Claude and Python. 75% fully replicated, 4 coding bugs discovered.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <h1>AERs for AERs</h1>
+      <p class="subtitle">AI Economic Replication Studies for American Economic Review Studies</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="stats-bar" id="stats-bar"></div>
+
+    <section id="summary">
+      <div class="summary-content" id="summary-content"></div>
+    </section>
+
+    <section id="studies-section">
+      <div class="section-header">
+        <h2>All Studies</h2>
+      </div>
+      <div class="filter-bar" id="filter-bar"></div>
+      <div class="study-grid" id="study-grid"></div>
+    </section>
+
+    <section id="detail-section" class="hidden"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>All replications performed using <a href="https://claude.ai" target="_blank">Claude</a> (Anthropic) with Python, pandas, and statsmodels.</p>
+      <p style="margin-top:0.5rem;">Replication data sourced from <a href="https://www.openicpsr.org/" target="_blank">openICPSR</a>.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

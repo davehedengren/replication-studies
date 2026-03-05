@@ -1,0 +1,11 @@
+Check,Description,Finding,Status
+1,Baseline model,Reference specification,Reference
+2,Omit Berlin,Results similar without Berlin,Robust
+3,East × Year FE,Controls for East-West divergence,Robust
+4,Drop multiple attacks,Single-attack municipalities only,Robust
+5,Drop coordinated,Non-coordinated attacks only,Robust
+6,Placebo parties,Other parties should not be affected similarly,Informative
+7,Turnout,Check if mobilization drives results,Informative
+8,By election type,Effect may vary by election level,Informative
+9,Right-wing only,Strongest for right-wing attacks,Informative
+10,Eligible voter share,Alternative AfD measure,Robust

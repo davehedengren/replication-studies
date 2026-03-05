@@ -1,0 +1,9 @@
+Check,Description,Finding,Status
+1,Pre-1990 vs Post-1990,E->TL higher post-1990; TL->E higher post-1990,Informative
+2,Recession decompositions,"2020 largest direct TL (61.9%), lowest I/D ratio (0.26)",Robust
+3,Recall rate monotonicity,TL recall generally declining with duration,Expected
+4,SIPP cross-panel stability,"TL recall 73-80% across panels, range <0.07",Robust
+5,Model moment matching,Most moments within 15% of data targets,Close
+6,Industry heterogeneity,Construction highest E->TL; FIRE/Public lowest,Informative
+7,COVID shock magnitudes,pET 35x normal in April 2020; TL rate 16x,Informative
+8,Demographic heterogeneity,Males higher E->TL; education weakly correlated,Informative
