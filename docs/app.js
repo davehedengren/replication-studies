@@ -9,7 +9,7 @@ const CONFIG = {
 };
 
 // =============================================================================
-// STUDY DATA — 39 Replication Studies
+// STUDY DATA — 41 Replication Studies
 // =============================================================================
 
 const STUDIES = [
@@ -1032,6 +1032,61 @@ const STUDIES = [
     hasRobustnessConcerns: false,
     images: ['Figure1_dendrogram.png','Figure_full_dendrogram.png'],
     codeFiles: ['01_clean.py','02_tables.py','03_figures.py','04_data_audit.py','05_robustness.py','utils.py']
+  },
+  {
+    id: '199083',
+    title: 'Moonshot: Public R&D and Growth',
+    authors: 'Kantor & Whalley',
+    journal: 'American Economic Review',
+    year: 2023,
+    topic: 'Public Economics',
+    verdict: 'replicated',
+    mainClaim: 'Space Race-era public R&D spending generated positive local manufacturing spillovers, concentrated in NASA-related industries in counties with high space capability.',
+    summaryFindings: 'Core triple-difference result replicates: NASA industry × high space capability × post-Space Race coefficient is +0.345*** for value added and +0.388*** for employment. Non-NASA industry placebo coefficients are near zero. N=4,302 (49 counties).',
+    tablesReplicated: 'Tables 1, 2A, 3',
+    keyFindings: [
+      'DDD coefficient +0.345*** (SE=0.112) for log value added — significant at 1%',
+      'DDD coefficient +0.388*** (SE=0.120) for log employment — significant at 1%',
+      'First stage confirmed: NASA spending and patents strongly predicted by treatment',
+      'Non-NASA industry placebo coefficients near zero, supporting DDD identification'
+    ],
+    notableIssues: [
+      'Sample size (4,302 obs, 49 counties) smaller than paper due to county crosswalk and MSA fill-in differences',
+      '1967 has notably fewer observations (61 vs ~475) due to MSA fill-in coverage'
+    ],
+    bugs: [],
+    robustnessNotes: 'Highly stable across 12 robustness checks including dropping years, alternative outcomes, clustering alternatives, and FE specifications.',
+    hasRobustnessConcerns: false,
+    images: [],
+    codeFiles: ['01_build.py','02_tables.py','04_data_audit.py','05_robustness.py','utils.py']
+  },
+  {
+    id: '206261',
+    title: 'Immigration, Innovation, and Growth',
+    authors: 'Burchardi, Chaney, Hassan, Tarquinio & Terry',
+    journal: 'American Economic Review',
+    year: 2024,
+    topic: 'Labor',
+    verdict: 'replicated',
+    mainClaim: 'Immigration causally increases local innovation (patenting) and wages, identified using a three-stage shift-share instrument based on historical ancestry and push-pull migration drivers.',
+    summaryFindings: 'IV coefficient on patents is positive and marginally significant (+1.03, t=1.66) with very strong first stage (F=803). Wage effect is significant (+0.25, t=2.32). Results stable across sample restrictions. 21,987 obs, 3,141 counties, 7 periods.',
+    tablesReplicated: 'Tables 1-4',
+    keyFindings: [
+      'IV (2SLS) patent coefficient: +1.03* (SE=0.62), consistent with paper',
+      'Very strong first stage: F=803, instrument-endogenous correlation=0.86',
+      'Wage IV: +0.25** (SE=0.11, t=2.32) — immigration raises local wages',
+      'OLS (+1.29) and IV (+1.03) are similar, consistent with measurement error attenuation'
+    ],
+    notableIssues: [
+      'Patent outcome has 40% missing data (available for 5 of 7 periods only)',
+      'County FE IV specification numerically unstable in our implementation',
+      'Three-stage instrument involves ~20 Stata/MATLAB/R scripts processing ~50 GB of raw data'
+    ],
+    bugs: [],
+    robustnessNotes: 'IV coefficient stable (0.81-1.19) across leave-one-period-out checks. Alternative patent measures give consistent results. County FE specification unstable.',
+    hasRobustnessConcerns: false,
+    images: [],
+    codeFiles: ['01_build.py','02_tables.py','04_data_audit.py','05_robustness.py','run_from_phase2.py','utils.py']
   }
 ];
 
