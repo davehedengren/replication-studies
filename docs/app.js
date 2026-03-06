@@ -1182,19 +1182,61 @@ function renderSummary() {
       <div class="highlight-card">
         <h3>Subgroup Fragility</h3>
         <p>Treatment effects driven by a single subgroup or region that, when excluded, eliminate statistical significance.</p>
+        <ul class="concern-papers">
+          <li><a href="#study/112786">Rainfall Forecasts &amp; Wages</a> &mdash; migration result driven by a single village</li>
+          <li><a href="#study/112801">Declining Fortunes of the Young</a> &mdash; decline is entirely a male phenomenon</li>
+          <li><a href="#study/112802">Earnings Differentials Across Majors</a> &mdash; widening trend driven entirely by older workers</li>
+          <li><a href="#study/112819">Global Fuel Subsidies</a> &mdash; two countries account for 50% of deadweight loss</li>
+          <li><a href="#study/227802">Childcare Laws &amp; Women's Empowerment</a> &mdash; dropping Sub-Saharan Africa eliminates significance (p=0.499)</li>
+        </ul>
       </div>
       <div class="highlight-card">
         <h3>Measure Sensitivity</h3>
-        <p>Results that change sign or significance when using alternative but equally valid variable definitions.</p>
+        <p>Results that change sign or significance when using alternative but equally valid variable definitions or specifications.</p>
+        <ul class="concern-papers">
+          <li><a href="#study/112783">Killer Apps in the iPhone Ecosystem</a> &mdash; Number of Versions effect loses significance dropping outliers</li>
+          <li><a href="#study/112803">Return of the Solow Paradox?</a> &mdash; alternative IT measure vintage reverses coefficient sign</li>
+          <li><a href="#study/112875">Election Fraud in Afghanistan</a> &mdash; vote-stuffing result insignificant after winsorizing at 1%</li>
+          <li><a href="#study/112876">Credit Crisis &amp; Farm Land Prices</a> &mdash; panel specification fragile to dropping census years</li>
+          <li><a href="#study/179162">Mother-Father Spending Differences</a> &mdash; gender differential disappears for incentivized goods and follow-up wave</li>
+        </ul>
       </div>
       <div class="highlight-card">
         <h3>Identification Concerns</h3>
         <p>Failed placebo tests or pre-treatment violations suggesting potential issues with identifying assumptions.</p>
+        <ul class="concern-papers">
+          <li><a href="#study/112792">Disability Insurance &amp; Health Reform</a> &mdash; pre-treatment event-study coefficients and low-power permutation test</li>
+          <li><a href="#study/112799">Race and Marriage in the Labor Market</a> &mdash; failed placebo test suggests block-randomization correlations may bias estimates</li>
+        </ul>
       </div>
       <div class="highlight-card">
         <h3>Trend-Driven Correlations</h3>
         <p>Statistical relationships driven entirely by shared secular trends rather than causal mechanisms.</p>
+        <ul class="concern-papers">
+          <li><a href="#study/112818">Policy Uncertainty Since 1960</a> &mdash; detrended and first-differenced correlations are near zero</li>
+        </ul>
       </div>
+      <div class="highlight-card">
+        <h3>Bug-Amplified Results</h3>
+        <p>Code bugs that meaningfully affect the magnitude of reported estimates, even when qualitative conclusions survive.</p>
+        <ul class="concern-papers">
+          <li><a href="#study/192297">Big Loans to Small Businesses</a> &mdash; coding bug inflates average treatment effect by ~40%</li>
+          <li><a href="#study/239791">Family Institutions &amp; Fertility</a> &mdash; level-vs-log bug affects R-squared gap magnitude</li>
+          <li><a href="#study/112820">Power Plants in India</a> &mdash; multiple code bugs compounded by declining data reporting rates</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="robust-passed">
+      <strong>Papers that passed robustness checks with no concerns:</strong>
+      The remaining ${total - concerns} papers showed no robustness issues. Several were notably stable:
+      <ul>
+        <li><a href="#study/112323">Entry, Exit &amp; Investment-Specific Technical Change</a> &mdash; robust across 34 specifications (placebo p=0.001)</li>
+        <li><a href="#study/112805">School Choice Lotteries &amp; School Effectiveness</a> &mdash; all 19 robustness checks confirm findings</li>
+        <li><a href="#study/112874">Too-Systemic-To-Fail</a> &mdash; survives alternative deltas, crisis dates, winsorization, leave-one-sector-out, and placebo spreads</li>
+        <li><a href="#study/199083">Moonshot: Public R&amp;D and Growth</a> &mdash; stable across 12 checks including alternative outcomes and FE specifications</li>
+        <li><a href="#study/206261">Immigration, Innovation, and Growth</a> &mdash; IV coefficient stable (0.81&ndash;1.19) across leave-one-period-out checks</li>
+      </ul>
     </div>
 
     <p>
