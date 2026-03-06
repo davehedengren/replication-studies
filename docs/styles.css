@@ -203,6 +203,49 @@ a:hover { text-decoration: underline; }
   margin-bottom: 0;
 }
 
+.highlight-card ul.concern-papers {
+  margin: 0.75rem 0 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.85rem;
+}
+
+.highlight-card ul.concern-papers li {
+  margin-bottom: 0.35rem;
+  line-height: 1.4;
+}
+
+.highlight-card ul.concern-papers a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.highlight-card ul.concern-papers a:hover {
+  text-decoration: underline;
+}
+
+.robust-passed {
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  border-left: 4px solid var(--replicated);
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.robust-passed ul {
+  margin: 0.75rem 0 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.85rem;
+  columns: 2;
+  column-gap: 2rem;
+}
+
+.robust-passed ul li {
+  margin-bottom: 0.35rem;
+  line-height: 1.4;
+}
+
 /* ===== SECTION HEADER ===== */
 .section-header {
   display: flex;
