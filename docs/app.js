@@ -3,8 +3,7 @@
 // =============================================================================
 
 const CONFIG = {
-  // Update this when you create the GitHub repo
-  repoUrl: 'https://github.com/YOUR_USERNAME/replication_studies',
+  repoUrl: 'https://github.com/davehedengren/replication-studies',
   openicpsrBase: 'https://www.openicpsr.org/openicpsr/project'
 };
 
