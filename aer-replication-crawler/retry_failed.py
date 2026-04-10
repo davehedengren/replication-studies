@@ -52,6 +52,11 @@ def run():
 
     print(f"Retrying {len(failed)} failed downloads...\n")
 
+    # Sweep stale artifacts left by any prior abnormal exit.
+    removed = cleanup_playwright_artifacts()
+    if removed:
+        print(f"  Swept {removed} stale playwright-artifacts-* dir(s) from prior run")
+
     with sync_playwright() as p:
         print(f"  Connecting to Chrome at {config.CDP_URL}...")
         try:
@@ -100,8 +105,10 @@ def run():
 
         print(f"\n{'='*60}")
         print(f"Retry complete: {success}/{len(failed)} recovered")
-        browser.close()
-        cleanup_playwright_artifacts()
+        try:
+            browser.close()
+        finally:
+            cleanup_playwright_artifacts()
 
 
 if __name__ == "__main__":

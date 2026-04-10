@@ -101,6 +101,14 @@ def run():
     print(f"  Resuming from search page {start_page}", flush=True)
     print(f"  Delay: {config.MIN_DELAY}-{config.MAX_DELAY}s\n", flush=True)
 
+    # Sweep stale Playwright artifact dirs left by any prior run that died
+    # abnormally (SIGKILL, crash, power loss). The `atexit` handler and the
+    # end-of-run cleanup only cover graceful exits — startup cleanup is the
+    # only thing that covers hard kills.
+    removed = cleanup_playwright_artifacts()
+    if removed:
+        print(f"  Swept {removed} stale playwright-artifacts-* dir(s) from prior run", flush=True)
+
     config.DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
     with sync_playwright() as p:
@@ -122,9 +130,11 @@ def run():
         page.set_default_timeout(60000)
         print(f"  Connected! Current page: {page.url}")
 
-        # Graceful shutdown on Ctrl+C
+        # Graceful shutdown on SIGINT (Ctrl+C) or SIGTERM (from `kill`,
+        # launchd, system shutdown). SIGKILL cannot be caught — the startup
+        # sweep above is the only defense against a hard kill.
         def shutdown(sig, frame):
-            print("\n\nShutting down gracefully...")
+            print(f"\n\nShutting down gracefully (signal {sig})...")
             state["status"] = f"stopped_at_{downloaded_count}"
             state["downloaded_count"] = downloaded_count
             state["checked_count"] = len(checked_ids)
@@ -134,6 +144,7 @@ def run():
             print(f"  State saved. Resume with: python main.py")
             sys.exit(0)
         signal.signal(signal.SIGINT, shutdown)
+        signal.signal(signal.SIGTERM, shutdown)
 
         # Check if we need to navigate to search
         if "search/aea/studies" not in page.url:
@@ -321,9 +332,14 @@ def run():
                 state["status"] = "running"
                 tracker.save_state(state)
 
-                # Move files to external drive every 10 downloads
+                # Every 10 downloads, move completed files to external drive
+                # and sweep accumulated Playwright artifacts. Bounds worst-case
+                # temp-disk growth during a long session.
                 if downloaded_count % 10 == 0 and downloaded_count > 0:
                     move_to_external()
+                    removed = cleanup_playwright_artifacts()
+                    if removed:
+                        print(f"    Swept {removed} playwright-artifacts-* dir(s)", flush=True)
 
                 polite_wait()
 
@@ -346,11 +362,16 @@ def run():
         print(f"  Downloaded: {downloaded_count}/{config.TARGET_COUNT}", flush=True)
         print(f"  Total checked: {len(checked_ids)}", flush=True)
 
-        # Disconnects CDP, leaves Chrome running
-        browser.close()
-
-        # Clean up Playwright temp artifacts to avoid filling disk
-        cleanup_playwright_artifacts()
+        # Always clean up artifacts even if browser.close() throws. The
+        # atexit handler will also run, but it's silent; this path lets us
+        # print the removed count for visibility.
+        try:
+            # Disconnects CDP, leaves Chrome running
+            browser.close()
+        finally:
+            removed = cleanup_playwright_artifacts()
+            if removed:
+                print(f"  Swept {removed} playwright-artifacts-* dir(s) on exit", flush=True)
 
 
 if __name__ == "__main__":

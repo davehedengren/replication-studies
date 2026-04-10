@@ -162,6 +162,11 @@ def run():
             unique_missed = cached
             print(f"  Loaded {len(unique_missed)} projects from recheck_queue.json (skipping Phase 1)", flush=True)
 
+    # Sweep stale artifacts left by any prior abnormal exit.
+    removed = cleanup_playwright_artifacts()
+    if removed:
+        print(f"  Swept {removed} stale playwright-artifacts-* dir(s) from prior run", flush=True)
+
     with sync_playwright() as p:
         print(f"  Connecting to Chrome at {config.CDP_URL}...")
         try:
@@ -180,7 +185,7 @@ def run():
         total_processed = 0
 
         def shutdown(sig, frame):
-            print(f"\n\nShutting down. Processed {total_processed}, downloaded {downloaded_count}")
+            print(f"\n\nShutting down (signal {sig}). Processed {total_processed}, downloaded {downloaded_count}")
             # Save remaining queue so we can skip Phase 1 next time
             remaining = unique_missed[total_processed:] if unique_missed else []
             if remaining:
@@ -188,8 +193,10 @@ def run():
                 with open(cache_file, "w") as f:
                     json.dump(remaining, f)
                 print(f"  Saved {len(remaining)} remaining projects to recheck_queue.json")
+            cleanup_playwright_artifacts()
             sys.exit(0)
         signal.signal(signal.SIGINT, shutdown)
+        signal.signal(signal.SIGTERM, shutdown)
 
         # Phase 1: Collect missed IDs (skip if we have a cache)
         if unique_missed is None:
@@ -232,7 +239,10 @@ def run():
 
         if not unique_missed:
             print("  Nothing to recheck!")
-            browser.close()
+            try:
+                browser.close()
+            finally:
+                cleanup_playwright_artifacts()
             return
 
         # Phase 2: Process each missed project
@@ -247,7 +257,8 @@ def run():
                 print(f"    Progress: {downloaded_count} recovered", flush=True)
             total_processed += 1
 
-            # Move to external drive every 10 downloads
+            # Every 10 downloads: move to external + sweep accumulated
+            # artifacts. Bounds worst-case temp-disk growth during long runs.
             if downloaded_count > 0 and downloaded_count % 10 == 0:
                 import subprocess
                 script = config.BASE_DIR / "move_to_external.sh"
@@ -256,6 +267,9 @@ def run():
                         subprocess.run([str(script)], capture_output=True, timeout=60)
                     except Exception:
                         pass
+                removed = cleanup_playwright_artifacts()
+                if removed:
+                    print(f"    Swept {removed} playwright-artifacts-* dir(s)", flush=True)
 
             polite_wait()
 
@@ -264,8 +278,12 @@ def run():
         print(f"  Processed: {total_processed}", flush=True)
         print(f"  Downloaded: {downloaded_count}", flush=True)
 
-        browser.close()
-        cleanup_playwright_artifacts()
+        try:
+            browser.close()
+        finally:
+            removed = cleanup_playwright_artifacts()
+            if removed:
+                print(f"  Swept {removed} playwright-artifacts-* dir(s) on exit", flush=True)
 
 
 if __name__ == "__main__":
