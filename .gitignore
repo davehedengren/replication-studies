@@ -1,11 +1,14 @@
 # Data folders (large, not for version control)
 *-V1/
 *.zip
+*.pdf
 
 # Python
 __pycache__/
 *.pyc
 *.pyo
+.venv/
+venv/
 
 # Large intermediate data files
 *.pkl
@@ -16,3 +19,18 @@ _triage_tmp/
 crawler.log
 download_tracker.json
 .DS_Store
+.env
+
+# aer-replication-crawler state files (rebuildable, not for version control)
+aer-replication-crawler/.env
+aer-replication-crawler/session.json
+aer-replication-crawler/download_tracker.json
+aer-replication-crawler/recheck_queue.json
+aer-replication-crawler/openalex_cache.json
+aer-replication-crawler/pdf_download_status.json
+aer-replication-crawler/scholar_pdf_status.json
+aer-replication-crawler/project_log_enriched.csv
+aer-replication-crawler/download_staging/
+aer-replication-crawler/downloads/
+aer-replication-crawler/pdfs/
+aer-replication-crawler/browser_profile/

@@ -2,6 +2,8 @@
 
 Python replications of economics papers from openICPSR replication packages. Each study translates the original code (typically Stata, R, or MATLAB) into Python and verifies published results, audits data quality, and runs robustness checks.
 
+The data-collection layer (the crawler that finds and downloads replication packages from openICPSR, and that fetches the corresponding paper PDFs from open-access sources) lives in [`aer-replication-crawler/`](aer-replication-crawler/). The merged tracker of every project we've ever looked at is in [`project_log.csv`](project_log.csv) (1,081 rows, 261 downloaded packages).
+
 ## Summary Statistics
 
 | Metric | Count |
