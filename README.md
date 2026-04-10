@@ -8,8 +8,8 @@ The data-collection layer (the crawler that finds and downloads replication pack
 
 | Metric | Count |
 |--------|-------|
-| Papers assessed | 34 |
-| Completed replications | 19 |
+| Papers assessed | 35 |
+| Completed replications | 20 |
 | Skipped (data unavailable) | 15 |
 | Bugs found | 3 |
 | Bugs affecting conclusions | 0 |
@@ -33,6 +33,7 @@ The data-collection layer (the crawler that finds and downloads replication pack
 | 173341 | Vulnerability and Clientelism | Bobonis, Gertler, Gonzalez-Navarro, Nichter | AER 2022 | Near-exact (Table 2 exact, Tables 1,3-5 within 0.002) | None |
 | 113192 | Disrupting Education? (Mindspark CAL) | Muralidharan, Singh, Ganimian | AER 2019 | Near-exact (Table 2 ITT + Table 8 IV within 0.02 SD) | None |
 | 117443 | Alcohol Tastes and Mortality (Russia) | Kueng & Yakovlev | AEJ: Policy 2020 | Exact (Tables 2 & 3 Panel B to 3dp) | None |
+| 119381 | Friend-Based Ranking | Bloch & Olckers | AEJ: Micro 2022 | Near-exact (Table 1 9/10 cells, all Fig 6–9 counts exact) | None |
 
 ### Partial Replications (data constraints)
 
@@ -104,6 +105,9 @@ Randomized water cisterns in Brazil's semiarid northeast reduce private goods re
 
 ### 113192 — Disrupting Education? (Mindspark CAL)
 A 4.5-month after-school computer-assisted-learning program in Delhi raises math scores by 0.37 SD and Hindi by 0.24 SD (paper reports 0.36 and 0.22). Dose-response IV gives 0.0067 SD/day math and 0.0043 SD/day Hindi — essentially identical to the paper's 0.0065 and 0.0040. Main ITT and IV replicate from scratch in Python; the package ships no Stata code (data-only). **Concern**: Treatment attrition is 4.8 pp higher than control (p ≈ 0.07). Lee (2009) bounds of [0.23, 0.44] math and [0.19, 0.40] Hindi keep the effect meaningfully positive even under worst-case trimming.
+
+### 119381 — Friend-Based Ranking
+Theoretical paper on ranking individuals from friend-based comparisons; empirical application uses 75 Karnataka village networks (Banerjee et al. 2013) and 633 Indonesian hamlet networks (Alatas et al. 2016). All 13 per-village statistics recompute to within 2×10⁻¹⁵ of the authors' shipped values. Table 1 matches 9/10 cells exactly; the published India "Support" mean (0.85) disagrees with the authors' own shipped data (0.82), which is a paper–package discrepancy, not a code bug. Every headline count in the paper's description of Figures 6–9 — including the Figure 9 "162 of 213 networks" support-beats-partition comparison and the 45 / 127 theorem-1 counts — reproduces exactly. Placebo Erdős–Rényi graphs matched on n and density have much lower support shares (0.37 vs 0.81 India; 0.76 vs 0.96 Indonesia), confirming the real networks are substantially more triangular than random. No coding bugs found.
 
 ### 117443 — Alcohol Tastes and Mortality (Russia)
 Russia's 1986–90 anti-alcohol campaign permanently shifted the drinking preferences of rural men who turned 17 during the campaign: they drink 5.2 pp more vodka as adults two decades later (paper: 5.232, SE 1.986; replication: 5.232, SE 1.982). The paper's IV estimate — a 1-pp increase in share of vodka raises log regional male mortality by 1.25 — also reproduces exactly (paper and replication: 1.253, SE 0.455, N = 1,343), as does the cancer placebo null and the alcohol-poisoning, external-cause, and "+log(alcohol intake)" columns. Every coefficient, SE, and N in Table 2 (cols 1–7) and Table 3 Panel B (cols 3–7) matches to 3 decimal places. **Concern**: The mortality IV is fragile to restricting the panel to years ≥ 2000 — the point estimate drops from 1.25 to 0.58 and loses significance, consistent with instrument strength coming from the first decade of the panel. No coding bugs found; the Stata pipeline is exceptionally clean.
