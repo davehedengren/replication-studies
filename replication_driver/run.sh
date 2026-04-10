@@ -207,7 +207,13 @@ fi
 # (Code/, Data/, etc.) extracts fine. The Python extractor skips the
 # individual bad entries and logs them, then continues.
 DEST="$REPO/${NEXT}-V1"
-if [ ! -d "$DEST" ]; then
+# Re-extract if the dest is missing OR exists but is empty. An empty dest can
+# be left behind by a failed extract attempt (e.g., the Python extractor
+# creates the dir before opening the zip; if the zip read raises, the empty
+# dir persists). Without this guard, the next run sees the empty dir and
+# silently hands a packageless directory to claude.
+if [ ! -d "$DEST" ] || [ -z "$(ls -A "$DEST" 2>/dev/null)" ]; then
+  rm -rf "$DEST"
   log "extracting $ZIP -> $DEST"
   set +e
   EXTRACT_OUT=$("$REPO/venv/bin/python" "$DRIVER/extract_zip.py" "$ZIP" "$DEST" "$LOGS_DIR/${NEXT}.extract.log" 2>&1)
