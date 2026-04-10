@@ -8,8 +8,8 @@ The data-collection layer (the crawler that finds and downloads replication pack
 
 | Metric | Count |
 |--------|-------|
-| Papers assessed | 32 |
-| Completed replications | 17 |
+| Papers assessed | 34 |
+| Completed replications | 19 |
 | Skipped (data unavailable) | 15 |
 | Bugs found | 3 |
 | Bugs affecting conclusions | 0 |
@@ -31,6 +31,8 @@ The data-collection layer (the crawler that finds and downloads replication pack
 | 239791 | Family Institutions and the Fertility Transition | Gobbi, Hannusch, Rossi | JEP 2026 | Full (24/24 figures, R² to 3dp) | **Yes** (minor) |
 | 241085 | Antitrust Enforcement in Labor Markets | Prager | JEP 2026 | Full (Figure 1, clusters match) | None |
 | 173341 | Vulnerability and Clientelism | Bobonis, Gertler, Gonzalez-Navarro, Nichter | AER 2022 | Near-exact (Table 2 exact, Tables 1,3-5 within 0.002) | None |
+| 113192 | Disrupting Education? (Mindspark CAL) | Muralidharan, Singh, Ganimian | AER 2019 | Near-exact (Table 2 ITT + Table 8 IV within 0.02 SD) | None |
+| 117443 | Alcohol Tastes and Mortality (Russia) | Kueng & Yakovlev | AEJ: Policy 2020 | Exact (Tables 2 & 3 Panel B to 3dp) | None |
 
 ### Partial Replications (data constraints)
 
@@ -99,6 +101,12 @@ Occupation clusters based on worker transition probabilities frequently cross st
 
 ### 173341 — Vulnerability and Clientelism
 Randomized water cisterns in Brazil's semiarid northeast reduce private goods requests from politicians (-0.028 pp) and improve well-being (Overall Index +0.126 SD). Rainfall shocks independently reduce requests (-0.025). Effects concentrated among those with clientelist relationships (-0.092 interaction). Treatment reduces incumbent vote share (-0.103, bootstrap p=0.038). Table 2 (vulnerability) matches exactly; small discrepancies in Tables 3/5 trace to a data version issue in the shipped package.
+
+### 113192 — Disrupting Education? (Mindspark CAL)
+A 4.5-month after-school computer-assisted-learning program in Delhi raises math scores by 0.37 SD and Hindi by 0.24 SD (paper reports 0.36 and 0.22). Dose-response IV gives 0.0067 SD/day math and 0.0043 SD/day Hindi — essentially identical to the paper's 0.0065 and 0.0040. Main ITT and IV replicate from scratch in Python; the package ships no Stata code (data-only). **Concern**: Treatment attrition is 4.8 pp higher than control (p ≈ 0.07). Lee (2009) bounds of [0.23, 0.44] math and [0.19, 0.40] Hindi keep the effect meaningfully positive even under worst-case trimming.
+
+### 117443 — Alcohol Tastes and Mortality (Russia)
+Russia's 1986–90 anti-alcohol campaign permanently shifted the drinking preferences of rural men who turned 17 during the campaign: they drink 5.2 pp more vodka as adults two decades later (paper: 5.232, SE 1.986; replication: 5.232, SE 1.982). The paper's IV estimate — a 1-pp increase in share of vodka raises log regional male mortality by 1.25 — also reproduces exactly (paper and replication: 1.253, SE 0.455, N = 1,343), as does the cancer placebo null and the alcohol-poisoning, external-cause, and "+log(alcohol intake)" columns. Every coefficient, SE, and N in Table 2 (cols 1–7) and Table 3 Panel B (cols 3–7) matches to 3 decimal places. **Concern**: The mortality IV is fragile to restricting the panel to years ≥ 2000 — the point estimate drops from 1.25 to 0.58 and loses significance, consistent with instrument strength coming from the first decade of the panel. No coding bugs found; the Stata pipeline is exceptionally clean.
 
 ---
 

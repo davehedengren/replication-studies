@@ -1,0 +1,46 @@
+
+=== Baseline (Table 2) ===
+[1. Baseline (strata FE, HC1)  ] Math   β=+0.3738*** SE=0.0620 p=0.0000 N=535
+[1. Baseline (strata FE, HC1)  ] Hindi  β=+0.2379*** SE=0.0608 p=0.0001 N=537
+
+=== 2. No strata FE ===
+[2. No strata FE               ] Math   β=+0.3693*** SE=0.0637 p=0.0000 N=535
+[2. No strata FE               ] Hindi  β=+0.2274*** SE=0.0622 p=0.0003 N=537
+
+=== 3. + demographic controls ===
+[3. + demog controls           ] Math   β=+0.3432*** SE=0.0746 p=0.0000 N=395
+[3. + demog controls           ] Hindi  β=+0.3068*** SE=0.0712 p=0.0000 N=397
+
+=== 4. Cluster SE at ms_center1 ===
+[4. Cluster SE (ms_center1)    ] Math   β=+0.3738*** SE=0.0524 p=0.0000 N=535
+[4. Cluster SE (ms_center1)    ] Hindi  β=+0.2379*** SE=0.0821 p=0.0038 N=537
+
+=== 5. Winsorize endline at 1/99 ===
+[5. Winsorize 1/99             ] Math   β=+0.3716*** SE=0.0586 p=0.0000 N=535
+[5. Winsorize 1/99             ] Hindi  β=+0.2266*** SE=0.0595 p=0.0001 N=537
+
+=== 6. Drop 0-day-attendance treatment students (compliers proxy) ===
+[6. Drop zero-attend T         ] Math   β=+0.4084*** SE=0.0624 p=0.0000 N=520
+[6. Drop zero-attend T         ] Hindi  β=+0.2595*** SE=0.0619 p=0.0000 N=522
+
+=== 7. Placebo: shuffle treatment within strata (1000 draws) ===
+[7. Placebo (permute in strata)] Math   β=+0.3738*** SE=0.0680 p=0.0000 N=535
+[7. Placebo (permute in strata)] Hindi  β=+0.2379*** SE=nan p=0.0000 N=535
+
+=== 8. Leave-one-strata-out (show range) ===
+[8. LOSO range [0.327, 0.394]  ] Math   β=+0.3739*** SE=0.0152 p=0.0000 N=19
+[8. LOSO range [0.206, 0.284]  ] Hindi  β=+0.2380*** SE=0.0177 p=0.0000 N=19
+
+=== 9. Drop grade-missing students ===
+[9. Drop grade-missing         ] Math   β=+0.3694*** SE=0.0632 p=0.0000 N=523
+[9. Drop grade-missing         ] Hindi  β=+0.2276*** SE=0.0611 p=0.0002 N=525
+
+=== 10. Alternative outcome: EAP (posterior-mean) IRT score ===
+[10. EAP outcome               ] Math   β=+0.5241*** SE=0.0702 p=0.0000 N=535
+[10. EAP outcome               ] Hindi  β=+0.2625*** SE=0.0624 p=0.0000 N=537
+
+=== 11. Lee (2009) bounds ===
+[11. Lee bounds            ] Math   [+0.226, +0.442]
+[11. Lee bounds            ] Hindi  [+0.185, +0.404]
+
+[saved] output/robustness.csv (22 rows)

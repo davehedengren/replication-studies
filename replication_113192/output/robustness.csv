@@ -1,0 +1,23 @@
+check,subject,beta,se,pval,N,sig
+"1. Baseline (strata FE, HC1)",Math,0.3738,0.062,0.0,535,***
+"1. Baseline (strata FE, HC1)",Hindi,0.2379,0.0608,0.0001,537,***
+2. No strata FE,Math,0.3693,0.0637,0.0,535,***
+2. No strata FE,Hindi,0.2274,0.0622,0.0003,537,***
+3. + demog controls,Math,0.3432,0.0746,0.0,395,***
+3. + demog controls,Hindi,0.3068,0.0712,0.0,397,***
+4. Cluster SE (ms_center1),Math,0.3738,0.0524,0.0,535,***
+4. Cluster SE (ms_center1),Hindi,0.2379,0.0821,0.0038,537,***
+5. Winsorize 1/99,Math,0.3716,0.0586,0.0,535,***
+5. Winsorize 1/99,Hindi,0.2266,0.0595,0.0001,537,***
+6. Drop zero-attend T,Math,0.4084,0.0624,0.0,520,***
+6. Drop zero-attend T,Hindi,0.2595,0.0619,0.0,522,***
+7. Placebo (permute in strata),Math,0.3738,0.068,0.0,535,***
+7. Placebo (permute in strata),Hindi,0.2379,,0.0,535,***
+"8. LOSO range [0.327, 0.394]",Math,0.3739,0.0152,0.0,19,***
+"8. LOSO range [0.206, 0.284]",Hindi,0.238,0.0177,0.0,19,***
+9. Drop grade-missing,Math,0.3694,0.0632,0.0,523,***
+9. Drop grade-missing,Hindi,0.2276,0.0611,0.0002,525,***
+10. EAP outcome,Math,0.5241,0.0702,0.0,535,***
+10. EAP outcome,Hindi,0.2625,0.0624,0.0,537,***
+"11. Lee bounds [lo, hi]",Math,0.334199994802475,0.1080000028014183,,537,"[0.226, 0.442]"
+"11. Lee bounds [lo, hi]",Hindi,0.29440000653266907,0.10970000177621841,,537,"[0.185, 0.404]"

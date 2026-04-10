@@ -1,0 +1,59 @@
+
+========== 1. Coverage ==========
+Baseline obs:     619
+Treatment:        314
+Control:          305
+Strata:           19
+Endline math (m_theta_mle2): 537
+Endline hindi (h_theta_mle2): 537
+Attrition math:   13.2%
+Attrition hindi:  13.2%
+
+========== 2. Attrition by treatment status ==========
+treat=0: baseline=305, math endline=272 (89.2%), hindi endline=272 (89.2%)
+treat=1: baseline=314, math endline=265 (84.4%), hindi endline=265 (84.4%)
+
+========== 3. Baseline balance (mean by arm, t-test) ==========
+m_theta_mle1        T= -0.008 (sd 0.984)  C=  0.008 (sd 1.018)  diff=-0.0157  p=0.846
+h_theta_mle1        T=  0.047 (sd 0.960)  C= -0.048 (sd 1.039)  diff=+0.0959  p=0.234
+st_age1             T= 12.674 (sd 1.565)  C= 12.407 (sd 1.503)  diff=+0.2670  p=0.062
+st_female1          T=  0.761 (sd 0.427)  C=  0.757 (sd 0.429)  diff=+0.0038  p=0.913
+ses_index           T= -0.035 (sd 1.716)  C=  0.036 (sd 1.685)  diff=-0.0701  p=0.609
+
+========== 4. Test score distributions ==========
+m_theta_mle1: N=617, mean=0.000, sd=1.000, min=-3.71, max=1.89
+m_theta_mle2: N=537, mean=0.494, sd=0.960, min=-3.67, max=3.15
+h_theta_mle1: N=617, mean=0.000, sd=1.000, min=-3.82, max=2.81
+h_theta_mle2: N=537, mean=0.281, sd=1.018, min=-3.82, max=3.21
+
+========== 5. Outliers (|z|>3 relative to baseline SD) ==========
+m_theta_mle1: 15 outliers with |z|>3 (of 617)
+m_theta_mle2: 7 outliers with |z|>3 (of 537)
+h_theta_mle1: 11 outliers with |z|>3 (of 617)
+h_theta_mle2: 7 outliers with |z|>3 (of 537)
+
+========== 6. Logical consistency ==========
+corr(m_theta_mle1, m_theta_mle2) = 0.604
+corr(h_theta_mle1, h_theta_mle2) = 0.693
+grade dummy row-sum: min=0.0 max=1.0 (should all be 1) — 604/619 are 1
+
+========== 7. Duplicates ==========
+duplicate st_id: 0
+
+========== 8. Attendance (ms_ei) ==========
+rows: 313
+att_tot: mean=49.66, median=62.00, sd=28.82, min=0.0, max=84.0
+students with 0 days:   27
+students with ≥60 days: 167
+max possible days per paper = 86
+merged treat values: {1.0: 313}
+
+========== 9. Panel balance over 2 waves ==========
+Math: both waves = 535, baseline only = 82
+Hindi: both waves = 537, baseline only = 80
+
+========== 10. School results (sc_results) ==========
+rows: 10303
+cols: 64
+
+[done] 04_data_audit.py

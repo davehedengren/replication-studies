@@ -1,0 +1,9 @@
+Panel N before IV: 1,343
+
+=== Replication of Table 3 Panel B ===
+                   name    N  beta_vodka  se_vodka  paper_beta  paper_se
+Col 3 logtotal (no alc) 1343       1.253     0.455       1.253     0.455
+ Col 4 logtotal (+ alc) 1343       1.271     0.473       1.271     0.473
+   Col 5 alco_poisoning 1327       3.836     1.532       3.836     1.532
+       Col 6 ext_causes 1343       1.230     0.523       1.230     0.523
+ Col 7 cancer (placebo) 1273      -0.190     1.225      -0.190     1.225

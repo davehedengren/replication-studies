@@ -1,0 +1,73 @@
+=== Base sample (post cleaning) ===
+Rows: 45,680
+Unique individuals (identificator): 12,485
+Years: 1994-2011
+Rounds: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+Rows per round:
+round
+5     2413
+6     2159
+7     2144
+8     2183
+9     2241
+10    2851
+11    2866
+12    2956
+13    2851
+14    2662
+15    3283
+16    3231
+17    2942
+18    3022
+19    4647
+20    3229
+
+Obs per individual: mean=3.66, median=2, max=16
+% of individuals with ≥5 obs: 28.3%
+
+share_vodka: min=0.0 max=100.0 mean=51.66 n_missing=0
+share_beer: min=0.0 max=100.0 mean=30.45 n_missing=0
+share_samogon: min=0.0 max=100.0 mean=8.44 n_missing=0
+share_dwine: min=0.0 max=100.0 mean=4.34 n_missing=0
+share_fwine: min=0.0 max=100.0 mean=3.22 n_missing=0
+share_other: min=0.0 max=100.0 mean=1.88 n_missing=0
+
+Sum of 6 shares: mean=100.000 p1=100.00 p99=100.00
+% of rows with sum outside [99.5, 100.5]: 0.00%
+
+alcohol_intake (grams ethanol): mean=142.7, median=105.0, p95=400.0, p99=650.0, max=2690.0
+
+=== Table 2 sample: cells by DiD group ===
+gorbachev      0     1    All
+rural                        
+0.0        12610  1690  14300
+1.0        14635  1712  16347
+All        27245  3402  30647
+
+Unique individuals in each 2x2 cell (Table 2 sample):
+  rural × during campaign   (treated):  480
+  rural × other cohorts     (control):  4,573
+  urban × during campaign:              498
+  urban × other cohorts:                4,176
+
+=== Missingness on Table 2 controls (year>=2001, 18<=age<=65) ===
+  alcohol_intake: 0.00% missing
+  price_beer_to_vodka: 0.00% missing
+  logincome: 0.00% missing
+  univ_educ: 0.09% missing
+  health_evaluation: 0.11% missing
+  married: 0.00% missing
+  wtself: 4.87% missing
+
+=== Regional mortality (5_year_89_12.dta) ===
+Rows: 34,713
+Regions: 83
+Years: 1989-2012
+Age bins: [20, 25, 30, 35, 40, 45, 50, 55, 60]
+Groups (R=rural,U=urban): ['R', 'U']
+
+Zero alcohol-poisoning cells: 7.11%
+Zero-total cells: 0.01%
+
+Panel cell balance: mean years/cell=23.4, min=1, max=24

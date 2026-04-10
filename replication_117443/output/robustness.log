@@ -1,0 +1,64 @@
+======================================================================
+TABLE 2 ROBUSTNESS (headline coef: rural_gorbachev on share_vodka)
+Baseline (paper Col 4): 5.232 (SE 1.986), N=29,083
+======================================================================
+
+1. Drop top-3 densest regions (Moscow/StP proxy)
+   (np.float64(3.564036244490944), np.float64(2.110513056465829), 23876)
+
+2. Leave-one-round-out sensitivity:
+   drop round 10: beta=6.056 (SE 2.092) N=26,870
+   drop round 11: beta=5.204 (SE 2.036) N=26,801
+   drop round 12: beta=5.408 (SE 2.021) N=26,836
+   drop round 13: beta=5.620 (SE 2.006) N=26,930
+   drop round 14: beta=5.407 (SE 1.971) N=27,055
+   drop round 15: beta=5.760 (SE 1.995) N=26,256
+   drop round 16: beta=4.183 (SE 1.993) N=26,227
+   drop round 17: beta=5.162 (SE 1.968) N=26,468
+   drop round 18: beta=4.678 (SE 1.998) N=26,334
+   drop round 19: beta=5.058 (SE 2.082) N=24,884
+   drop round 20: beta=4.978 (SE 2.085) N=26,169
+
+3. Wider campaign window 1985–91:
+   (np.float64(2.9022708019097156), np.float64(1.6565897278233737), 29083)
+
+4. Narrower campaign window 1987–89:
+   (np.float64(5.893644069674691), np.float64(2.481209840409605), 29083)
+
+5. Winsorize share_vodka at 1%/99%:
+   (np.float64(5.231743954947918), np.float64(1.9820200361470073), 29083)
+
+6. Placebo permutation (500 draws): p(|null|>=5.232)=0.000, null mean=0.005, std=1.304
+
+7. Drop heavy drinkers (>p99 alc intake = 600g):
+   (np.float64(4.831155102412), np.float64(1.9299267807930858), 28821)
+
+8. Young adults only (age ≤ 40):
+   (np.float64(4.271753141528175), np.float64(2.0845217065904413), 17030)
+
+9. Placebo outcome — share_beer:
+   (np.float64(-3.1290757861431926), np.float64(1.727125256733008), 29083)  (paper: -3.129 [1.730])
+
+10. Placebo outcome — share_wine:
+   (np.float64(0.0777252625562227), np.float64(1.0141764604865326), 29083)
+
+11. Include minors (age 14–17):
+   (np.float64(5.064762075577901), np.float64(1.9762543891998323), 30017)
+
+12. All years 1994–2011 (paper col 15: 4.661 [1.765]):
+   (np.float64(3.9915647195609334), np.float64(1.6978905113653477), 38178)
+
+======================================================================
+TABLE 3 PANEL B ROBUSTNESS (headline coef: share_vodka on logtotal, IV)
+Baseline (paper Col 3): 1.253 (SE 0.455), N=1,343
+======================================================================
+
+14. + log(alc intake) control: (np.float64(1.271483404270839), np.float64(0.47320075666364253), 1343)
+
+15. Drop top-3 most populous regions: (np.float64(1.444954613023583), np.float64(0.5730644277068077), 1171)
+
+16. Panel years ≥ 2000: (np.float64(0.5804533761438506), np.float64(0.3724001467231527), 1011)
+
+17. Placebo outcome log(cancer): (np.float64(-0.19045072463813995), np.float64(1.224703175738423), 1273)
+
+18. Cluster SEs by region only: beta=1.253 (SE 0.523)
