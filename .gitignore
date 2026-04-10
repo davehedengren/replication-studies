@@ -34,3 +34,7 @@ aer-replication-crawler/download_staging/
 aer-replication-crawler/downloads/
 aer-replication-crawler/pdfs/
 aer-replication-crawler/browser_profile/
+
+# Replication driver runtime state
+replication_driver/logs/
+replication_driver/run.log

@@ -1,0 +1,35 @@
+# Shared environment for all AER replication studies.
+# Install into the shared venv:
+#   source venv/bin/activate && pip install -r requirements.txt
+#
+# Claude is free to `pip install` additional packages into this venv
+# as individual papers require them. Add anything durable back here.
+
+# Core numerics / data
+numpy
+pandas
+scipy
+pyarrow        # parquet I/O
+
+# Plotting
+matplotlib
+
+# Econometrics
+statsmodels
+linearmodels   # AbsorbingLS, IV2SLS, panel methods
+
+# Machine learning
+scikit-learn
+
+# File format readers
+pyreadr        # R .rds / .RData files
+openpyxl       # .xlsx
+xlrd           # legacy .xls
+pyreadstat     # alternative .dta/.sav reader (sometimes faster than pandas)
+
+# Spatial (used by at least one existing replication)
+geopandas
+
+# Utility
+tabulate       # pretty tables in stdout logs
+tqdm           # progress bars for long loops
