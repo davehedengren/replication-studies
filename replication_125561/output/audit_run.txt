@@ -1,0 +1,70 @@
+============================================================
+DATA AUDIT — Elections.dta (national presidential elections)
+============================================================
+
+1. Coverage
+  Full national panel: 14,040 obs, 1755 districts
+  Main regression sample (after singleton drop): 13,536 obs, 1692 districts
+  Years: [2001.0, 2006.0, 2011.0, 2016.0]
+  Election dates: 8 unique
+  Provinces: 193  Regions: 25
+  Poverty categories (category_06): {2: 6488, 1: 6096, 0: 1456}
+
+2. Panel balance
+  Obs per district — mean=8.0, min=8, max=8
+  Districts with full 8 elections: 1755 / 1755
+
+3. Key variable distributions
+  turnout                n= 13536  mean=  +0.793  sd= 0.095  min=  +0.165  max=  +0.989
+  ln_turnout             n= 13536  mean=  -0.240  sd= 0.130  min=  -1.805  max=  -0.011
+  fine_a                 n= 13536  mean=  +0.897  sd= 0.427  min=  +0.180  max=  +1.360
+  ln_fine                n= 13536  mean=  -0.292  sd= 0.691  min=  -1.715  max=  +0.307
+  spoiled_elec           n= 13536  mean=  +0.125  sd= 0.077  min=  +0.003  max=  +0.677
+  ln_electores           n= 13536  mean=  +7.903  sd= 1.383  min=  +2.639  max= +13.454
+  ln_votos_emitidos      n= 13536  mean=  +7.663  sd= 1.422  min=  +2.485  max= +13.328
+  electores_01           n= 13536  mean=+8157.385  sd=26389.359  min= +14.000  max=+361460.000
+  share_primaria         n= 10152  mean=  +0.368  sd= 0.134  min=  +0.000  max=  +0.850
+
+4. Logical checks
+  turnout in [0,1]? min=0.165  max=0.989  (out-of-range: 0)
+  spoiled_elec in [0,1]? min=0.003  max=0.677
+  fine_a values (S/100): unique=8  range=[0.180, 1.360]
+  fine_a by year × category_06 (first value seen):
+category_06     0      1     2
+year                          
+2001.0       1.20  1.200  1.20
+2006.0       1.36  1.360  1.36
+2011.0       0.72  0.360  0.72
+2016.0       0.79  0.395  0.79
+
+5. Missingness
+  share_primaria          missing=3384
+  ln_entre_18_20          missing=3384
+  ln_mayores_75           missing=3384
+  (share_primaria missing in 2006 — no education data that year)
+
+6. Duplicates
+  Duplicate (ubigeo, date) rows: 0
+
+7. Category transitions (2006 → 2010 reform)
+category_10     1    2     3   All
+category_06                       
+0             332    0     0   332
+1            1100  232   138  1470
+2             312  380   890  1582
+All          1744  612  1028  3384
+
+8. Turnout by election
+date_str
+2001-04-08    0.829007
+2001-06-03    0.820265
+2006-04-09    0.892773
+2006-06-04    0.882920
+2011-04-10    0.848174
+2011-06-05    0.837251
+2016-04-10    0.829465
+2016-06-05    0.815936
+
+9. Outliers (IQR × 1.5 rule)
+  turnout: 175 outliers (1.3%)
+  spoiled_elec: 115 outliers (0.8%)

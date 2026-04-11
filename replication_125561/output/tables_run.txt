@@ -1,0 +1,64 @@
+
+============ Table 1: Marginal Effect of Fine on Turnout ============
+-- Panel A: turnout on fine_a (S/100) --
+  (1) baseline            : fine_a=+0.0487[0.0085]  N=13536  D=1692  ybar=0.845
+  (2) Election FE         : fine_a=+0.0727[0.0116]  N=14040  D=1755  ybar=0.844
+  (3) Elec x Prov FE      : fine_a=+0.0459[0.0095]  N=14040  D=1755  ybar=0.844
+  (4) no weights          : fine_a=+0.0621[0.0103]  N=13536  D=1692  ybar=0.793
+  (5) poverty shares      : fine_a=+0.0349[0.0107]  ne_dt_1=+0.0126[0.0037]  ne_dt_2=-0.0430[0.0171]  ne_dt_3=-0.0306[0.0123]  ne_dt_4=-0.0912[0.0207]  ne_dt_5=-0.0846[0.0205]  ne_dt_6=-0.0723[0.0160]  ne_dt_7=-0.0673[0.0158]  ex_dt_1=-0.0159[0.0062]  ex_dt_2=+0.0593[0.0171]  ex_dt_3=+0.0415[0.0181]  ex_dt_4=+0.0596[0.0201]  ex_dt_5=+0.0297[0.0225]  ex_dt_6=-0.0232[0.0211]  ex_dt_7=-0.0841[0.0249]  N=13536  D=1692  ybar=0.845
+  (6) education shares    : fine_a=+0.0614[0.0109]  share_primaria=+0.3047[0.0843]  share_sec=+0.2544[0.0917]  share_univ=+0.5579[0.1072]  N=10152  D=1692  ybar=0.831
+  (7) polling stations    : fine_a=+0.0463[0.0090]  ln_local=-0.0160[0.0032]  N=13536  D=1692  ybar=0.845
+
+-- Panel B: ln turnout on ln fine --
+  (1) baseline            : ln_fine=+0.0296[0.0053]  N=13536  D=1692  ybar=-0.171
+  (2) Election FE         : ln_fine=+0.0403[0.0065]  N=14040  D=1755  ybar=-0.172
+  (3) Elec x Prov FE      : ln_fine=+0.0277[0.0057]  N=14040  D=1755  ybar=-0.172
+  (4) no weights          : ln_fine=+0.0372[0.0064]  N=13536  D=1692  ybar=-0.240
+  (5) poverty shares      : ln_fine=+0.0231[0.0070]  ne_dt_1=+0.0166[0.0052]  ne_dt_2=-0.0614[0.0233]  ne_dt_3=-0.0461[0.0172]  ne_dt_4=-0.1138[0.0257]  ne_dt_5=-0.1033[0.0256]  ne_dt_6=-0.0859[0.0199]  ne_dt_7=-0.0710[0.0230]  ex_dt_1=-0.0243[0.0089]  ex_dt_2=+0.0750[0.0237]  ex_dt_3=+0.0548[0.0252]  ex_dt_4=+0.0902[0.0298]  ex_dt_5=+0.0476[0.0340]  ex_dt_6=-0.0354[0.0304]  ex_dt_7=-0.1411[0.0409]  N=13536  D=1692  ybar=-0.171
+  (6) education shares    : ln_fine=+0.0365[0.0065]  share_primaria=+0.4687[0.1311]  share_sec=+0.3796[0.1270]  share_univ=+0.7435[0.1401]  N=10152  D=1692  ybar=-0.188
+  (7) polling stations    : ln_fine=+0.0285[0.0056]  ln_local=-0.0184[0.0041]  N=13536  D=1692  ybar=-0.171
+
+Paper Panel A (1): 0.049 [0.008]; (2): 0.073 [0.012]; (3): 0.046 [0.009];
+                   (4): 0.062 [0.010]; (5): 0.035 [0.011]; (6): 0.061 [0.011]; (7): 0.046 [0.009]
+Paper Panel B (1): 0.030 [0.005]; (2): 0.040 [0.006]; (3): 0.028 [0.006];
+                   (4): 0.037 [0.006]; (5): 0.023 [0.007]; (6): 0.037 [0.007]; (7): 0.029 [0.006]
+
+============ Table 2: Heterogeneous Effects ============
+  (1) long-run fine_a,fine_2016: fine_a=+0.0197[0.0085]  fine_2016=+0.0509[0.0049]  N=13536  D=1692  ybar=0.845
+  (2) runoff       fine_a,fine_r2: fine_a=+0.0390[0.0090]  fine_r2=+0.0194[0.0040]  N=13536  D=1692  ybar=0.845
+  (3) poverty      fine_a,fine_any_poor: fine_a=-0.0224[0.0221]  fine_any_poor=+0.0722[0.0211]  N=13536  D=1692  ybar=0.845
+  (4) ln long-run              : ln_fine=+0.0108[0.0049]  lfine_2016=+0.0375[0.0033]  N=13536  D=1692  ybar=-0.171
+  (5) ln runoff                : ln_fine=+0.0226[0.0055]  lfine_r2=+0.0140[0.0027]  N=13536  D=1692  ybar=-0.171
+  (6) ln poverty               : ln_fine=-0.0214[0.0220]  lfine_any_poor=+0.0578[0.0245]  N=13536  D=1692  ybar=-0.171
+
+Paper: (1) a=0.020 [.008], b=0.051 [.005];  (2) a=0.039 [.009], b=0.019 [.004]
+       (3) a=-0.022 [.022], b=0.072 [.021]
+       (4) a=0.011 [.005], b=0.038 [.003];  (5) a=0.023 [.006], b=0.014 [.003]
+       (6) a=-0.021 [.022], b=0.058 [.025]
+
+============ Table 3: Registration by Age (ln_electores on ln_fine, generals only) ============
+  sample N=5076, districts=1692  (paper N=5,076, D=1,692)
+  ln_electores      : ln_fine=-0.0452[0.0191]  N=5076  D=1692  ybar=10.706  paper: -0.045 [0.019]
+  ln_entre_18_20    : ln_fine=-0.2760[0.0426]  N=5076  D=1692  ybar=7.996  paper: -0.276 [0.043]
+  ln_entre_21_29    : ln_fine=-0.0551[0.0202]  N=5076  D=1692  ybar=9.279  paper: -0.055 [0.020]
+  ln_entre_30_35    : ln_fine=-0.0307[0.0219]  N=5076  D=1692  ybar=8.770  paper: -0.031 [0.022]
+  ln_entre_36_50    : ln_fine=-0.0206[0.0195]  N=5076  D=1692  ybar=9.431  paper: -0.021 [0.020]
+  ln_entre_51_75    : ln_fine=-0.0169[0.0240]  N=5076  D=1692  ybar=9.191  paper: -0.017 [0.024]
+  ln_mayores_75     : ln_fine=-0.0574[0.0508]  N=5076  D=1692  ybar=7.318  paper: -0.057 [0.051]
+
+============ Table 4: Registration & Votes ============
+  (1) ln_electores on ln_fine (runoff==0): ln_fine=-0.0460[0.0149]  N=6768  D=1692  ybar=10.676
+  (2) + lfine_2016                       : ln_fine=-0.0348[0.0123]  lfine_2016=-0.0224[0.0086]  N=6768  D=1692  ybar=10.676
+  (3) ln_votes on ln_fine               : ln_fine=-0.0164[0.0160]  N=13536  D=1692  ybar=10.505
+  (4) + lfine_2016                       : ln_fine=-0.0240[0.0136]  lfine_2016=+0.0151[0.0091]  N=13536  D=1692  ybar=10.505
+Paper: (1) -0.046 [.015]; (2) a=-0.035 [.012], b=-0.022 [.009]
+       (3) -0.016 [.016]; (4) a=-0.024 [.014], b=+0.015 [.009]
+
+============ Table 5: Fine effect on Invalid/Blank votes ============
+  (1) turnout on fine_a        : fine_a=+0.0428[0.0085]  N=6768  D=1692  ybar=0.851
+  (2) + fine_2016              : fine_a=+0.0171[0.0091]  fine_2016=+0.0451[0.0053]  N=6768  D=1692  ybar=0.851
+  (3) spoiled on fine_a        : fine_a=+0.0369[0.0069]  N=6768  D=1692  ybar=0.122
+  (4) + fine_2016              : fine_a=+0.0220[0.0077]  fine_2016=+0.0262[0.0053]  N=6768  D=1692  ybar=0.122
+Paper Table 5 (first-round only):
+  (1) turnout: 0.043 [.008];  (2) fine_a=0.017 [.009], fine_2016=0.045 [.005]
+  (3) spoiled: 0.037 [.007];  (4) fine_a=0.022 [.008], fine_2016=0.026 [.005]

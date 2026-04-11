@@ -1,0 +1,59 @@
+Baseline SDID τ = -15.604
+
+[1] Standard error comparison
+    Placebo SE (200 reps, Alg. 4):   8.42
+    Placebo SE (500 reps, Alg. 4):   9.23
+    Fixed-weights jackknife: N/A (only 1 treated unit, Alg. 3 returns NaN)
+
+[2] Leave-one-top-donor-out (5 biggest control weights)
+    drop Nevada          (ω=0.124): τ = -17.06  (Δ=-1.45)
+    drop New Hampshire   (ω=0.105): τ = -16.51  (Δ=-0.91)
+    drop Connecticut     (ω=0.078): τ = -16.51  (Δ=-0.91)
+    drop Delaware        (ω=0.070): τ = -15.16  (Δ=+0.44)
+    drop Colorado        (ω=0.058): τ = -15.57  (Δ=+0.04)
+
+[3] Leave-one-pre-year-out
+    worst drops:
+      drop 1988: τ = -16.45 (Δ=-0.85)
+      drop 1970: τ = -16.31 (Δ=-0.70)
+      drop 1986: τ = -15.22 (Δ=+0.39)
+      drop 1977: τ = -15.84 (Δ=-0.23)
+      drop 1974: τ = -15.77 (Δ=-0.17)
+    range of τ across drops: [-16.45, -15.22]
+
+[4] Placebo-in-time: shift treatment date earlier (no data change)
+    Use only pre-treatment data, split at a fake cutoff
+    fake treatment at 1980: τ = -2.92
+    fake treatment at 1982: τ = -0.78
+    fake treatment at 1984: τ = +0.58
+    fake treatment at 1986: τ = -1.52
+
+[5] Regularization sensitivity (varying η_ω)
+    η_ω = 0.25 × default (0.465): τ = -12.40
+    η_ω = 0.50 × default (0.931): τ = -14.22
+    η_ω = 1.00 × default (1.861): τ = -15.60
+    η_ω = 2.00 × default (3.722): τ = -16.57
+    η_ω = 4.00 × default (7.445): τ = -17.80
+
+[6] Disable sparsify step
+    τ = -15.61  (Δ=-0.01)
+
+[7] Disable omega intercept (pure simplex, no constant)
+    τ = -18.75  (Δ=-3.15)
+
+[8] Disable lambda intercept
+    τ = -14.55  (Δ=+1.05)
+
+[9] In-space placebo (pretend each control is 'treated')
+    placebo τ mean: +0.39, sd: 9.37
+    share of |placebo τ| ≥ |baseline|: 0.026  (one-sided p ≈ 0.026)
+
+[10] Shorter post-period (effect of later years on the average)
+    end at 1993 (T1=5): τ = -6.78
+    end at 1995 (T1=7): τ = -9.81
+    end at 1997 (T1=9): τ = -12.31
+    end at 2000 (T1=12): τ = -15.60
+
+[11] Drop Nevada (largest donor) and re-run Table 1-like comparison
+    SDID: -17.06  SC: -19.50  DID: -28.38
+    (baseline:  -15.60,  -19.62,  -27.35)

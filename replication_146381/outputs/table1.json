@@ -1,0 +1,34 @@
+[
+  {
+    "estimator": "SDID",
+    "pub_estimate": -15.6,
+    "pub_se": 8.4,
+    "our_estimate": -15.60382787273386,
+    "our_se": 8.42136271868127,
+    "delta_estimate": -0.0038278727338596497
+  },
+  {
+    "estimator": "SC",
+    "pub_estimate": -19.6,
+    "pub_se": 9.9,
+    "our_estimate": -19.61966347094401,
+    "our_se": 10.763541392585262,
+    "delta_estimate": -0.01966347094400689
+  },
+  {
+    "estimator": "DID",
+    "pub_estimate": -27.3,
+    "pub_se": 17.7,
+    "our_estimate": -27.349111083614964,
+    "our_se": 15.85265755435729,
+    "delta_estimate": -0.049111083614963746
+  },
+  {
+    "estimator": "DIFP",
+    "pub_estimate": -11.1,
+    "pub_se": 9.5,
+    "our_estimate": -11.104644927719779,
+    "our_se": 9.623350324156366,
+    "delta_estimate": -0.004644927719779091
+  }
+]

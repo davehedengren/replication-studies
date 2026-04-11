@@ -1,0 +1,51 @@
+==========================================================================================
+ROBUSTNESS CHECKS — PM10 RD estimate (baseline 34.9 ug/m3)
+==========================================================================================
+
+--- Baseline reproduction ---
+Baseline (pub 34.9)                                  coef=  34.62  se= 5.81  n=234,940  bw= 266.0  (Δ=-0.3, -1%)
+
+--- 1. Alt kernel (uniform) ---
+Uniform kernel                                       coef=  36.16  se= 6.69  n=136,564  bw= 161.2  (Δ=+1.3, +4%)
+
+--- 2. Alt kernel (Epanechnikov) ---
+Epanechnikov kernel                                  coef=  35.79  se= 6.45  n=172,417  bw= 199.4  (Δ=+0.9, +3%)
+
+--- 3. Alt polynomial order ---
+Local quadratic (p=2)                                coef=  34.21  se= 5.80  n=255,151  bw= 287.9  (Δ=-0.7, -2%)
+
+--- 4. Fixed narrower/wider bandwidths ---
+h=60 days                                            coef=  29.74  se= 8.06  n= 48,128  bw=  60.0  (Δ=-5.2, -15%)
+h=180 days                                           coef=  34.62  se= 6.72  n=153,404  bw= 180.0  (Δ=-0.3, -1%)
+h=365 days                                           coef=  30.20  se= 4.86  n=329,564  bw= 365.0  (Δ=-4.7, -13%)
+
+--- 5. Placebo: pre-period only, cutoff at -180 ---
+Placebo (pre-period, fake cut -180)                  coef=   3.40  se= 4.95  n= 22,403  bw=  26.5  (Δ=-31.5, -90%)
+
+--- 6. Placebo: post-period only, cutoff at +180 ---
+Placebo (post-period, fake cut +180)                 coef=  -2.43  se= 3.54  n= 30,092  bw=  28.2  (Δ=-37.3, -107%)
+
+--- 7. Winsorize PM10 at 1%/99% before residualizing ---
+Winsorized 1/99                                      coef=  30.67  se= 5.13  n=184,280  bw= 211.6  (Δ=-4.2, -12%)
+
+--- 8. Log PM10 as outcome (residualized) ---
+Log PM10, residualized                               coef=+0.2732  se=0.0454  n=190,238  bw=217.6  (≈+27.3%)
+
+--- 9. Drop Wave-2 and estimate on Wave-1 only ---
+Wave 1 only                                          coef=  27.58  se= 9.89  n= 81,497  bw= 140.0  (Δ=-7.3, -21%)
+--- 10. Drop Wave-1 and estimate on Wave-2 only ---
+Wave 2 only                                          coef=  63.26  se= 9.63  n= 69,752  bw= 238.9  (Δ=+28.4, +81%)
+
+--- 11. Leave-one-wave-out: drop all Wave-1 deadline stations ---
+Drop auto_date==19359                                coef=  15.82  se= 6.39  n=116,375  bw= 221.3  (Δ=-19.1, -55%)
+--- 12. Leave-one-wave-out: drop all Wave-2 deadline stations ---
+Drop auto_date==19724                                coef=  33.29  se= 7.84  n=151,594  bw= 205.3  (Δ=-1.6, -5%)
+
+--- 13. Alternative cluster: station-level ---
+Cluster at station (not city)                        coef=  33.85  se= 2.97  n=135,592  bw= 160.5  (Δ=-1.1, -3%)
+
+--- 14. Drop 5% most polluted cities (pre-auto mean) ---
+Drop top-5% polluted cities                          coef=  29.87  se= 4.99  n=309,357  bw= 359.9  (Δ=-5.0, -14%)
+
+--- 15. Parametric OLS within h=109 (no bias correction) ---
+Parametric OLS (tri-weighted, h=109):       coef=  30.97  se= 5.59  n=91,470

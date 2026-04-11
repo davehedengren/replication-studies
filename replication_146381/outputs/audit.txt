@@ -1,0 +1,55 @@
+============================================================
+DATA AUDIT: California Prop 99 (data/california_prop99.csv)
+============================================================
+Rows: 1209
+Columns: ['State', 'Year', 'PacksPerCapita', 'treated']
+Missing cells: 0
+
+States: 39
+Years: 31  range [1970, 2000]
+Expected balanced obs = 1209; actual = 1209
+
+Treated rows: 12
+Treated states: ['California']
+Treated year range: [1989, 2000]
+Untreated California rows: 19
+
+PacksPerCapita summary:
+  mean 118.89  sd 32.77
+  min  40.70  max 296.20
+  quartiles: [100.9000015 116.3000031 130.5      ]
+
+Highest 5 PacksPerCapita:
+  New Hampshire   1972  296.20
+  New Hampshire   1976  290.50
+  New Hampshire   1973  279.00
+  New Hampshire   1977  278.80
+  New Hampshire   1971  278.00
+
+Lowest 5 PacksPerCapita:
+  Utah            2000  40.70
+  California      2000  41.60
+  Utah            1998  42.30
+  Utah            1999  43.90
+  California      1999  47.20
+
+Duplicate (State, Year) rows: 0
+
+Avg PacksPerCapita 1970: 120.16
+Avg PacksPerCapita 1988 (pre-treatment): 113.22
+Avg PacksPerCapita 2000: 90.84
+
+California pre-treatment mean: 116.21
+Controls   pre-treatment mean: 130.57
+
+Donor pool size: 38 states (Abadie et al. (2010) excluded states that also passed large cigarette taxes).
+
+Panel matrix shape: (39, 31)  (N, T) = (39, 31)
+  N0=38, T0=19
+  treated unit: California
+  pre-period mean for treated: 116.21
+  post-period mean for treated: 60.35
+  pre-period mean for controls: 130.57
+  post-period mean for controls: 102.06
+
+Naive DID (California vs pooled controls): -27.35
