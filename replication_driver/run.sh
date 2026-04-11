@@ -265,6 +265,20 @@ if [ -f "$WRITEUP" ] || [ -f "$INFEASIBLE" ]; then
   else
     log "completed $NEXT (marked infeasible)"
   fi
+
+  # Reclaim local disk: the extracted package under ${NEXT}-V1/ is never
+  # read again after the writeup is produced, and it can be 5-12 GB per
+  # paper for bigger packages. The source zip on the external SSD remains
+  # the authoritative copy — if we ever need the V1 dir back, run.sh will
+  # re-extract from the zip in about a second on the next invocation.
+  # We only delete after verifying the zip is still present on the external
+  # drive, so a dismount mid-run can't leave us with nothing.
+  if [ -f "$ZIP" ]; then
+    rm -rf "$DEST"
+    log "reclaimed local package $DEST (zip intact on external)"
+  else
+    log "kept local package $DEST — zip no longer present at $ZIP (external unmounted?)"
+  fi
 else
   log "FAILED $NEXT (no writeup or INFEASIBLE.md produced; claude exit=$CLAUDE_EXIT)"
 fi
