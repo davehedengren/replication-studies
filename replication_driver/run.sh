@@ -37,6 +37,14 @@ MAX_BUDGET_PER_PAPER="${MAX_BUDGET_PER_PAPER:-10.00}"
 # Model to use for each replication. Pin for determinism across runs.
 CLAUDE_MODEL="${CLAUDE_MODEL:-claude-opus-4-6}"
 
+# Stall watchdog: kill claude if its stream-JSON log file has not been
+# written to in this many seconds. Catches the failure mode where claude
+# hangs on a network read inside a tool call (the process stays alive but
+# emits zero events). 600s = 10 minutes is generous enough for a slow PDF
+# read or a long extended-thinking turn, but tight enough that we lose at
+# most 10 minutes per stuck paper instead of 3+ hours.
+STALL_TIMEOUT="${STALL_TIMEOUT:-600}"
+
 # Pre-flight disk gate: skip the tick if the boot volume has fewer than this
 # many GB available. macOS APFS reports "available" as the free space *after*
 # accounting for purgeable blocks (local snapshots, cached content, Time
@@ -238,7 +246,13 @@ PAPER_LOG="$LOGS_DIR/${NEXT}.log"
   echo "===== paper $NEXT ====="
 } >> "$PAPER_LOG"
 
-if claude -p "$PROMPT" \
+# Launch claude in the background so we can run a stall watchdog in the
+# foreground. The watchdog polls the stream-JSON log file's mtime; if it
+# hasn't grown in STALL_TIMEOUT seconds, the watchdog kills claude. This
+# catches the failure mode where claude is alive but hung on a network
+# read inside a tool call (--max-budget-usd doesn't help because no
+# tokens are being spent).
+claude -p "$PROMPT" \
     --dangerously-skip-permissions \
     --model "$CLAUDE_MODEL" \
     --max-budget-usd "$MAX_BUDGET_PER_PAPER" \
@@ -246,10 +260,43 @@ if claude -p "$PROMPT" \
     --output-format stream-json \
     --verbose \
     --include-partial-messages \
-    >> "$PAPER_LOG" 2>&1; then
-  CLAUDE_EXIT=0
-else
-  CLAUDE_EXIT=$?
+    >> "$PAPER_LOG" 2>&1 &
+CLAUDE_PID=$!
+
+# Watchdog loop. Polls every 30 seconds, which is short enough that the
+# stall window is bounded to STALL_TIMEOUT + 30s and long enough that the
+# overhead is negligible across a 15-minute paper run.
+WATCH_INTERVAL=30
+KILLED_BY_WATCHDOG=0
+while kill -0 "$CLAUDE_PID" 2>/dev/null; do
+  sleep "$WATCH_INTERVAL"
+  if ! kill -0 "$CLAUDE_PID" 2>/dev/null; then
+    break
+  fi
+  log_mtime=$(stat -f %m "$PAPER_LOG" 2>/dev/null || echo 0)
+  now=$(date +%s)
+  silent_for=$(( now - log_mtime ))
+  if [ "$silent_for" -gt "$STALL_TIMEOUT" ]; then
+    log "STALL: $NEXT silent for ${silent_for}s (> ${STALL_TIMEOUT}s), killing PID $CLAUDE_PID"
+    kill "$CLAUDE_PID" 2>/dev/null || true
+    sleep 2
+    kill -9 "$CLAUDE_PID" 2>/dev/null || true
+    KILLED_BY_WATCHDOG=1
+    break
+  fi
+done
+
+# Reap the (now-exited) claude process and capture its real exit status.
+# `wait` will return non-zero if claude was killed by a signal; we need
+# `set +e` here so that doesn't terminate run.sh before the verification
+# step below has a chance to inspect what's on disk.
+set +e
+wait "$CLAUDE_PID" 2>/dev/null
+CLAUDE_EXIT=$?
+set -e
+
+if [ "$KILLED_BY_WATCHDOG" -eq 1 ]; then
+  log "claude exited after watchdog kill (exit=$CLAUDE_EXIT)"
 fi
 echo "===== claude exit $CLAUDE_EXIT $(date) =====" >> "$PAPER_LOG"
 
