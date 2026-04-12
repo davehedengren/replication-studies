@@ -1,0 +1,28 @@
+==================== TABLE 3: Tax base ====================
+Published: profit 4.909 (3.212) | NDVI 0.00724 (0.00570) | irrigated -0.0000514 (0.0490) | log land 0.0635 (0.0444)
+
+[Col 1 profit     ]  beta=4.9093  se=3.2213  N=5986
+[Col 2 NDVI       ]  beta=0.00724  se=0.00609  N=288
+  Loaded secEFGB: 340479 rows
+[Col 3 irrigated  ]  beta=-0.000051  se=0.049041  N=161796
+[Col 4 log land   ]  beta=0.0635  se=0.0444  N=161836
+
+==================== TABLE 4: Reported base assessed by bureaucrats ====================
+Published: log assessed area -0.100 (0.0338) | log tax demand -0.600 (0.211)
+
+[Col 1 ln assessed area ]  beta=-0.1004  se=0.0370  N=214
+[Col 2 ln tax demand    ]  beta=-0.5998  se=0.2318  N=203
+
+==================== TABLE 5: Bureaucrat performance ====================
+Published: cum_tax -35.42*** (11.52) | >=50% -0.394*** (0.128) | >=75% -0.417*** (0.122) | zero months 0.263** (0.116) | N=304
+
+[Col cum_tax        ]  beta=-35.4153  se=12.1324  p=0.0035  N=302
+[Col perf_dummy50   ]  beta=-0.3945  se=0.1348  p=0.0034  N=302
+[Col perf_dummy75   ]  beta=-0.4170  se=0.1288  p=0.0012  N=302
+[Col frac_zeroperf  ]  beta=0.2629  se=0.1219  p=0.0310  N=302
+
+==================== TABLE 6: Revenue circle level ====================
+Published: unstacked -0.222** (0.101) | stacked -0.263* (0.144)
+
+[Col 1 OLS unstacked ]  beta=-0.2219  se=0.1104  N=3913
+[Col 3 OLS stacked   ]  beta=-0.2648  se=nan  N=15173

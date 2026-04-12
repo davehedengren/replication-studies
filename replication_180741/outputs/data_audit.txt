@@ -1,0 +1,89 @@
+
+=== NoChoice (nochoice.dta) ===
+rows=327, cols=133
+duplicated id: 0
+  recommendincentive     miss=    0 mean=0.734 min=0.000 max=1.000
+  conflict               miss=    0 mean=0.709 min=0.000 max=1.000
+  incentiveB             miss=    0 mean=0.483 min=0.000 max=1.000
+  female                 miss=    0 mean=0.498 min=0.000 max=1.000
+  age                    miss=    0 mean=36.905 min=19.000 max=87.000
+  alphavaluefinal        miss=   28 mean=3.144 min=0.000 max=5.000
+  treatment              miss=    0 mean=2.468 min=1.000 max=4.000
+  condition              miss=    0 unique=4
+
+=== Choice (choice_experiments.dta) ===
+rows=6976, cols=94
+duplicated id: 711
+  recommendincentive     miss=    0 mean=0.743 min=0.000 max=1.000
+  choicebefore           miss=    0 mean=0.537 min=0.000 max=1.000
+  conflict               miss=    0 mean=0.700 min=0.000 max=1.000
+  getbefore              miss=    0 mean=0.520 min=0.000 max=1.000
+  getyourchoice          miss=    0 mean=0.752 min=0.000 max=1.000
+  incentiveB             miss=    0 mean=0.499 min=0.000 max=1.000
+  female                 miss=    0 mean=0.539 min=0.000 max=1.000
+  age                    miss=   11 mean=37.538 min=18.000 max=85.000
+  alphavaluefinal        miss= 1388 mean=3.027 min=0.000 max=5.000
+  logitbelief            miss=  108 mean=-0.078 min=-4.595 max=4.595
+  treatment              miss=    0 mean=1.104 min=0.000 max=3.000
+  condition              miss=    0 unique=4
+
+=== Stakes (stakes.dta) ===
+rows=1681, cols=143
+duplicated id: 0
+  recommendincentive     miss=    0 mean=0.663 min=0.000 max=1.000
+  choicebefore           miss=    0 mean=0.355 min=0.000 max=1.000
+  conflict               miss=    0 mean=0.703 min=0.000 max=1.000
+  getbefore              miss=    0 mean=0.438 min=0.000 max=1.000
+  getyourchoice          miss=    0 mean=0.747 min=0.000 max=1.000
+  incentiveB             miss=    0 mean=0.493 min=0.000 max=1.000
+  female                 miss=    1 mean=0.559 min=0.000 max=1.000
+  age                    miss=    1 mean=36.708 min=18.000 max=81.000
+  alphavaluefinal        miss=  209 mean=3.283 min=0.000 max=5.000
+  condition              miss=    0 unique=3
+
+=== IA (InformationArchitect.dta) ===
+rows=549, cols=93
+duplicated id: 0
+  choicebefore           miss=    0 mean=0.519 min=0.000 max=1.000
+  female                 miss=    0 mean=0.592 min=0.000 max=1.000
+  age                    miss=    0 mean=37.996 min=19.000 max=92.000
+  alphavaluefinal        miss=   51 mean=3.080 min=0.000 max=5.000
+  condition              miss=    0 unique=2
+
+=== Consistency checks ===
+noconflict + conflict != 1: 0 rows
+getyourchoice==1 but getbefore != choicebefore: 0 rows
+  belief: min=0.000 max=100.000 mean=48.509
+  beliefbin: min=1.000 max=10.000 mean=5.048
+  logitbelief: min=-4.595 max=4.595 mean=-0.084
+  age out of [18,100]: 0
+
+Logit belief missingness by treatment (choice main):
+              n  miss_logit  miss_rec
+treatment                            
+0.0        2574          40         0
+1.0         712           8         0
+2.0        1562          26         0
+3.0        1067           9         0
+
+Female share and age by treatment:
+             female        age
+treatment                     
+0.0        0.527972  37.881073
+1.0        0.532303  36.678371
+2.0        0.528809  37.460501
+3.0        0.600750  38.601313
+
+choicebefore by wave:
+                       mean  count
+wave1 wave2 wave3                 
+0.0   0.0   0.0    0.480337    712
+            1.0    0.555184   1495
+      1.0   0.0    0.595442   1053
+1.0   0.0   0.0    0.491525   2655
+
+NoChoice balance (female, age, stdalpha) by seeincentivefirst:
+                     female        age  stdalpha
+seeincentivefirst                               
+0.0                0.537415  38.755102 -0.121078
+1.0                0.473684  35.401316  0.117095

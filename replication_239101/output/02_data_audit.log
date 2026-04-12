@@ -1,0 +1,105 @@
+========================================================================
+COVERAGE
+========================================================================
+Total observations:      27,540
+Unique subjects:         918
+Unique sessions:         77
+Periods per subject:     min=30  max=30
+Periods cover 1..30:     [np.int64(1), np.int64(2), np.int64(3), np.int64(4), np.int64(5)]...[np.int64(26), np.int64(27), np.int64(28), np.int64(29), np.int64(30)]
+oTree version mix (new): {1: 468, 0: 450}
+Treatment counts (p=1):  {'Baseline': 254, 'InformedOwn': 246, 'InformedBottom': 230, 'InformedTop': 188}
+All subjects have 30 rows? True
+
+========================================================================
+VARIABLE COMPLETENESS
+========================================================================
+  guess_partner_score      27294  (99.11%)
+  guess_own_score          27294  (99.11%)
+  hourly_wage              26674  (96.86%)
+  total_time               26674  (96.86%)
+  a4                       26622  (96.67%)
+  a1                       26622  (96.67%)
+  payoff                   26622  (96.67%)
+  paynumber                26622  (96.67%)
+  paydecision              26622  (96.67%)
+  payperiod                26622  (96.67%)
+  a5                       26622  (96.67%)
+  a3                       26622  (96.67%)
+  a6                       26622  (96.67%)
+  a7                       26622  (96.67%)
+  payoff_plus_fee          26622  (96.67%)
+  a2                       26622  (96.67%)
+  partner_type              7620  (27.67%)
+  dir_pdis                  3201  (11.62%)
+  mean_dirpdis               510  (1.85%)
+  rt2                          6  (0.02%)
+  rt1                          6  (0.02%)
+  (guess_own_score/guess_partner_score missing outside InformedOwn — expected)
+  (partner_type missing in Baseline — expected)
+  (dir_pdis missing when guess1 == 0.5 — by construction)
+
+========================================================================
+DISTRIBUTIONAL SUMMARY — key numeric variables
+========================================================================
+                   count       mean       std     min      1%        5%      50%        95%      99%     max
+guess1           27540.0     0.4958    0.3268    0.00    0.00    0.0000     0.50     1.0000     1.00     1.0
+guess2           27540.0     0.4902    0.3166    0.00    0.00    0.0000     0.50     1.0000     1.00     1.0
+test_score       27540.0     3.1983    2.3146    0.00    0.00    0.0000     3.00     7.0000     7.00     7.0
+payoff             918.0     3.2948    1.3941    0.00    0.10    0.4000     3.60     5.1000     5.50     5.7
+total_time         866.0  1079.7379  391.7774  348.00  472.65  605.5000  1018.00  1799.0000  2220.05  3696.0
+rt1              27534.0     8.9085    7.9758    1.00    2.00    3.0000     7.00    23.0000    42.00   117.0
+rt2              27534.0     6.3611    5.5061    1.00    1.00    2.0000     5.00    15.0000    30.00   109.0
+pdis             27540.0     0.1338    0.2043    0.00    0.00    0.0000     0.05     0.6000     1.00     1.0
+adis             27540.0     0.3150    0.2603    0.00    0.00    0.0000     0.26     0.8500     1.00     1.0
+dir_pdis         24339.0     0.1020    0.2333   -0.45   -0.28   -0.1300     0.00     0.6000     1.00     1.0
+bayesianBeliefs  27540.0     0.5013    0.4123    0.00    0.00    0.0005     0.50     0.9998     1.00     1.0
+
+========================================================================
+PLAUSIBILITY CHECKS
+========================================================================
+guess1 in [0,1]?  True
+guess2 in [0,1]?  True
+test_score in 0..7?  True
+orange in {0,1}?  True
+urn in {0,1}?  True
+pdis in [0,1]?  True
+payoff range: [0.000, 5.700]
+total_time > 0 throughout? False
+
+========================================================================
+LOGICAL CONSISTENCY
+========================================================================
+cumOrangeBalls matches running sum of orange for every subject: True
+bayesianBeliefs in [0,1]: True
+P(orange | urn=1) = 0.672   [design: 2/3 ≈ 0.667]
+P(orange | urn=0) = 0.332   [design: 1/3 ≈ 0.333]
+
+========================================================================
+PARTNER MATCHING
+========================================================================
+Group-period sizes in main treatments: min=2 max=2 mean=2.000
+All size-2 pairs: True
+InformedOwn group-period sizes: min=2 max=2 mean=2.000
+guess_partner NA rate: 0.00%
+
+========================================================================
+DUPLICATES
+========================================================================
+Duplicate (id, period) rows: 0
+Fully duplicated rows: 0
+
+========================================================================
+MISSING DATA BY TREATMENT
+========================================================================
+  Baseline         N_rows= 7620  rt1_na%=0.00  rt2_na%=0.00
+  InformedTop      N_rows= 5640  rt1_na%=0.05  rt2_na%=0.05
+  InformedBottom   N_rows= 6900  rt1_na%=0.04  rt2_na%=0.04
+  InformedOwn      N_rows= 7380  rt1_na%=0.00  rt2_na%=0.00
+
+========================================================================
+OUTLIER SCAN
+========================================================================
+  total_time: P50=1018 P95=1799 max=3696 n>P75+1.5IQR=37
+  rt1: P50=7 P95=23 max=117 n>P75+1.5IQR=2443
+  rt2: P50=5 P95=15 max=109 n>P75+1.5IQR=2466
+Non-updaters (all 30 periods guess1=0.5): 17 of 918

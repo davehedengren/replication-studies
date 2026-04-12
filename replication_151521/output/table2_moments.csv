@@ -1,0 +1,9 @@
+stat,paper,repl
+Net tuition std/mean,0.99,1.293
+Sticker tuition std/mean,0.77,0.782
+Avg. family income std/mean,0.51,0.503
+Fraction of high ability std/mean,0.26,0.276
+Sticker vs Net,0.83,0.833
+Net vs Family income,0.6,0.361
+Net vs Frac high ability,0.22,0.247
+Family income vs Frac HA,0.59,0.564

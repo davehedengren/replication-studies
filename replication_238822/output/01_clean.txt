@@ -1,0 +1,39 @@
+=== District-year tax data (Tax_District_Yr.dta) ===
+rows=219  districts=36  years=[np.float32(2006.0), np.float32(2007.0), np.float32(2008.0), np.float32(2009.0), np.float32(2010.0), np.float32(2011.0), np.float32(2012.0), np.float32(2013.0)]
+digitization==1 obs: 34
+obs per fin_yr:
+fin_yr
+2006.0    20
+2007.0    22
+2008.0    11
+2009.0    34
+2010.0    31
+2011.0    32
+2012.0    33
+2013.0    36
+tax_acres overall mean=14.883
+tax_acres pre-2012 control mean=14.165
+phase breakdown: {2.0: 86, 3.0: 70, 1.0: 63}
+
+=== Stacked district-year data (Tax_District_Yr_stacked.dta) ===
+rows=404  events=[np.float32(1.0), np.float32(100.0)]
+rows per event: {1.0: 206, 100.0: 198}
+
+=== Reported cultivated area (reportedcultivated.dta) ===
+rows=214  years=[np.int16(2007), np.int16(2008), np.int16(2010), np.int16(2011), np.int16(2012), np.int16(2013)]
+
+=== NDVI (NDVI_2006_2014.dta) ===
+rows=288  districts=36
+
+=== HIES profit data (hh_level_data_hies.dta) ===
+rows=15767  cultivating=5986
+
+=== PSLM section EFGB (secEFGB_3_25.dta) ===
+rows=340479  cols=154
+
+=== Bureaucrat x district x year (Bureaucrat_district_Yr.dta) ===
+rows=515
+cum_tax control mean = 53.910
+
+=== Revenue circle x year (revcircle_yr.dta) ===
+rows=4542  rev circles=795

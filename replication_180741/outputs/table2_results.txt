@@ -1,0 +1,21 @@
+Table 2: Preferences for Information Order (OLS, HC3)
+
+Col1 (N=5908):
+  professionalsfree      -0.0952 (SE 0.0260) t=-3.66 p=0.0003
+  seeincentivecostly     -0.1393 (SE 0.0178) t=-7.84 p=0.0000
+  seequalitycostly       +0.1517 (SE 0.0294) t=+5.17 p=0.0000
+
+Col2 (N=5196):
+  seeincentivecostly     -0.1395 (SE 0.0177) t=-7.86 p=0.0000
+  seequalitycostly       +0.1523 (SE 0.0294) t=+5.19 p=0.0000
+
+Col3 (N=5196):
+  professionalsfree      -0.0000 (SE 0.0000) t=-22.20 p=0.0000
+  seeincentivecostly     -0.1397 (SE 0.0177) t=-7.88 p=0.0000
+  seequalitycostly       +0.1520 (SE 0.0294) t=+5.18 p=0.0000
+
+Adjusted margins:
+  ChoiceFree                 incentive=0.546  quality=0.454
+  Professionals              incentive=0.451  quality=0.549
+  IncentiveFirstCostly       incentive=0.407  quality=0.593
+  QualityFirstCostly         incentive=0.698  quality=0.302

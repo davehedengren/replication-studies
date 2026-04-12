@@ -1,0 +1,13 @@
+check,n,spearman_vs_baseline,pearson_vs_baseline,max_abs_dev
+"1. baseline (median, DEU ref, 2010-14, >=14)",25,1.0,1.0,0.0
+2. mean (instead of median),25,0.99,0.9937,0.262
+3. reference country = USA,25,0.9638,0.9863,0.3037
+"4. years = 2005-2009 (missing: CHL,GBR)",23,0.9121,0.9063,1.0775
+5. years = 2005-2014,25,0.9738,0.986,0.4993
+"6. min_inds = 18 of 20 (missing: CHL,DNK,GBR,IRL,USA)",20,0.9985,0.9994,0.4389
+7. min_inds = 10 of 20,25,1.0,1.0,0.0234
+8. drop D19 petroleum,25,0.9962,0.9992,0.0932
+9. 10% trim on rel_lrdint,25,1.0,1.0,0.0
+10. reference country = BEL,25,0.9654,0.9869,0.3724
+11. reference country = JPN,25,0.9562,0.9877,0.3242
+12. leave-one-industry-out WORST (D13),25,0.9938,,0.3489

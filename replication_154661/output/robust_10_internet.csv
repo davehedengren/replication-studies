@@ -1,0 +1,3 @@
+subset,n,avg,large_lownet,large_highnet,small_lownet,small_highnet
+all 22 countries,22,0.26078427,0.16998519,0.31258538,0.17273107,0.38179338
+drop N. Africa,20,0.2395753,0.16998519,0.24835497,0.121853486,0.38179338

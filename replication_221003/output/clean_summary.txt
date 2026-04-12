@@ -1,0 +1,4 @@
+Endline rows: 19373
+Endline target children: 3765
+Baseline target children (Table 1 sample): 4687
+Baseline HH-level obs: 4687

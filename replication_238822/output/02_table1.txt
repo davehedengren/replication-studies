@@ -1,0 +1,18 @@
+==================== TABLE 1 ====================
+Tax collection per acre on digitization (TWFE and stacked DID)
+Published: OLS -6.57 (SE 3.69) unstacked | -6.74 (SE 3.83) stacked
+Published: Median -5.21 (SE 2.43) unstacked | -5.60 (SE 1.97) stacked
+
+[Col 1 OLS unstacked ]  beta=-6.5670  se=4.0481  p=0.105  N=212
+[Col 2 Median unstk  ]  beta=-5.0955  se=1.9546 (boot) N=212
+[Col 3 OLS stacked   ]  beta=-6.7388  se=4.2296  p=0.111  N=393
+[Col 4 Median stacked]  beta=-5.8654  se=2.0317 (boot) N=393
+
+==================== TABLE 2 (2SLS + OLS) ====================
+Published: first stage 37.42*** (unstk), 39.97*** (stk); KP-F 55.7 / 112.1
+Published: 2SLS -0.176 (unstk), -0.169 (stk); OLS -0.0756 (unstk), -0.0864 (stk)
+
+[Unstacked] 1st stage beta=37.419 se=5.014  KP-F=55.7  2SLS beta=-0.1755 se=0.1082  N=212
+[Stacked  ] 1st stage beta=39.966 se=3.776  KP-F=112.0  2SLS beta=-0.1686 se=0.1058  N=393
+[OLS x unstacked    ]  beta=-0.0756  se=0.0825  N=212
+[OLS x stacked      ]  beta=-0.0864  se=0.0863  N=393

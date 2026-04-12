@@ -1,0 +1,13 @@
+var,group,tr,mean,se,n
+contain_racism_terms,Full sample,Before,0.10092687950566426,0.009671972714211243,971
+contain_racism_terms,Full sample,After,0.0509683995922528,0.0070255090479562805,981
+contain_racism_terms,Biden voters,Before,0.16766467065868262,0.016706479513745442,501
+contain_racism_terms,Biden voters,After,0.08249496981891348,0.012353133154664651,497
+contain_racism_terms,Trump voters,Before,0.029787234042553193,0.00784986449309895,470
+contain_racism_terms,Trump voters,After,0.01859504132231405,0.006146800706424776,484
+contain_labor_terms,Full sample,Before,0.7384140061791967,0.014111440180821118,971
+contain_labor_terms,Full sample,After,0.8022426095820592,0.012723488040284078,981
+contain_labor_terms,Biden voters,Before,0.7305389221556886,0.01984196589913879,501
+contain_labor_terms,Biden voters,After,0.806841046277666,0.017725993097391316,497
+contain_labor_terms,Trump voters,Before,0.7468085106382979,0.020079031434843127,470
+contain_labor_terms,Trump voters,After,0.7975206611570248,0.018284696798917314,484

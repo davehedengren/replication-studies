@@ -1,0 +1,38 @@
+Workbook: Table1_A1.xlsx
+Sheets (9): ['Table 1', 'Table A1', 'CountriesContinents', 'Under_3', 'Preschool_3_to_5', 'Early_Elementary_6_to_8', 'Late_Elementary_9_to_11', 'Early_Adolescence_12_to_14', 'Late_Adolescence_15_to_17']
+
+--- Sheet: Table 1 ---
+  shape: (83, 7)
+  columns: ['                      Developmental\n                         Stage\nExperimental \n    Aspect\n', 'Preschool\n (3-5)', 'Early Elementary\n(6-8)', 'Late Elementary\n(9-11)', 'Early Adolescence\n(12-14)', 'Late Adolescence\n(15-17)', 'Standard Practices']
+
+--- Sheet: Table A1 ---
+  shape: (42, 7)
+  columns: ['                      Developmental\n                         Stage (Ages)\nExperimental \n    Aspect\n', 'Under 3\n(0-2)', 'Preschool\n(3-5)', 'Early Elementary\n(6-8)', 'Late \nElementary\n(9-11)', 'Early Adolescence\n(12-14)', 'Late Adolescence\n(15-17)']
+
+--- Sheet: CountriesContinents ---
+  shape: (39, 13)
+  columns: ['Variables', 'Under 3', 'Unnamed: 2', 'Preschool - 3 to 5', 'Unnamed: 4', 'Early Elementary - 6 to 8', 'Unnamed: 6', 'Late Elementary - 9 to 11', 'Unnamed: 8', 'Early Adolescence - 12 to 14', 'Unnamed: 10', 'Late Adolescence - 15 to 17', 'Unnamed: 12']
+
+--- Sheet: Under_3 ---
+  shape: (8, 25)
+  columns: ['Paper Title', 'Authors', 'Journal', 'Repetition', 'Year', 'Country', 'Sample Size', 'Instructions', 'Instruction Aids', 'Instruction Delivery Format', 'Identity of Partner/Group (Conditional on Group Tast)', 'Group Size (Coniditional on Group Task)', 'Session Size', 'Subject Decision Format', 'Subject Decision Complexity (units)', 'Total Number of Subject Decisions', 'Incentives', 'Exchange Rate', 'Payout Value (Units)', 'Payout Value ($)', 'Experiment Length (range)', 'Experiment Length (midpoint)', 'Payout for Repeated Decisions', 'Comprehension Check', 'Type']
+
+--- Sheet: Preschool_3_to_5 ---
+  shape: (158, 27)
+  columns: ['Paper Title', 'Authors', 'Journal', 'Repetition', 'Year', 'Country', 'Sample Size', 'Instructions', 'Instruction Aids', 'Instruction Delivery Format', 'Identity of Partner/Group (Conditional on Group Tast)', 'Group Size (Coniditional on Group Task)', 'Session Size', 'Subject Decision Format', 'Subject Decision Complexity (units)', 'Total Number of Subject Decisions', 'Incentives', 'Exchange Rate', 'Payout Value (Units)', 'Payout Value ($)', 'Experiment Length (range)', 'Experiment Length (midpoint)', 'Payout for Repeated Decisions', 'Comprehension Check', 'Type', 'Unnamed: 25', 'Unnamed: 26']
+
+--- Sheet: Early_Elementary_6_to_8 ---
+  shape: (261, 25)
+  columns: ['Paper Title', 'Authors', 'Journal', 'Repetition', 'Year', 'Country', 'Sample Size', 'Instructions', 'Instruction Aids', 'Instruction Delivery Format', 'Identity of Partner/Group (Conditional on Group Tast)', 'Group Size (Coniditional on Group Task)', 'Session Size', 'Subject Decision Format', 'Subject Decision Complexity (units)', 'Total Number of Subject Decisions', 'Incentives', 'Exchange Rate', 'Payout Value (Units)', 'Payout Value ($)', 'Experiment Length (range)', 'Experiment Length (midpoint)', 'Payout for Repeated Decisions', 'Comprehension Check', 'Type']
+
+--- Sheet: Late_Elementary_9_to_11 ---
+  shape: (229, 25)
+  columns: ['Paper Title', 'Authors', 'Journal', 'Repetition', 'Year', 'Country', 'Sample Size', 'Instructions', 'Instruction Aids', 'Instruction Delivery Format', 'Identity of Partner/Group (Conditional on Group Tast)', 'Group Size (Coniditional on Group Task)', 'Session Size', 'Subject Decision Format', 'Subject Decision Complexity (units)', 'Total Number of Subject Decisions', 'Incentives', 'Exchange Rate', 'Payout Value (Units)', 'Payout Value ($)', 'Experiment Length (range)', 'Experiment Length (midpoint)', 'Payout for Repeated Decisions', 'Comprehension Check', 'Type']
+
+--- Sheet: Early_Adolescence_12_to_14 ---
+  shape: (170, 25)
+  columns: ['Paper Title', 'Authors', 'Journal', 'Repetition', 'Year', 'Country', 'Sample Size', 'Instructions', 'Instruction Aids', 'Instruction Delivery Format', 'Identity of Partner/Group (Conditional on Group Tast)', 'Group Size (Coniditional on Group Task)', 'Session Size', 'Subject Decision Format', 'Subject Decision Complexity (units)', 'Total Number of Subject Decisions', 'Incentives', 'Exchange Rate', 'Payout Value (Units)', 'Payout Value ($)', 'Experiment Length (range)', 'Experiment Length (midpoint)', 'Payout for Repeated Decisions', 'Comprehension Check', 'Type']
+
+--- Sheet: Late_Adolescence_15_to_17 ---
+  shape: (149, 25)
+  columns: ['Paper Title', 'Authors', 'Journal', 'Repetition', 'Year', 'Country', 'Sample Size', 'Instructions', 'Instruction Aids', 'Instruction Delivery Format', 'Identity of Partner/Group (Conditional on Group Tast)', 'Group Size (Coniditional on Group Task)', 'Session Size', 'Subject Decision Format', 'Subject Decision Complexity (units)', 'Total Number of Subject Decisions', 'Incentives', 'Exchange Rate', 'Payout Value (Units)', 'Payout Value ($)', 'Experiment Length (range)', 'Experiment Length (midpoint)', 'Payout for Repeated Decisions', 'Comprehension Check', 'Type']

@@ -1,0 +1,122 @@
+======================================================================
+ DATA AUDIT — Aman-Rana & Minaudier, Spillovers in State Capacity
+======================================================================
+
+[1] Tax_District_Yr.dta — main TWFE sample
+  rows=219  districts=36
+  fin_yr range: 2006-2013
+  expected balanced size: 36 districts x 8 years = 288
+  observed: 219  → unbalanced (gap rows = 69)
+  obs per fin_yr:
+    2006: 20
+    2007: 22
+    2008: 11
+    2009: 34
+    2010: 31
+    2011: 32
+    2012: 33
+    2013: 36
+  obs per district (panel balance):
+    min=1, max=8, mean=6.1
+    districts with <8 years: 31 of 36
+
+  tax_acres distribution:
+count    212.000000
+mean      14.882653
+std       15.771021
+min        0.000000
+25%        3.778935
+50%       10.163135
+75%       21.180130
+max      102.588821
+  share of zero/near-zero (<0.01) tax_acres: 5.0%
+  IQR-based outliers (>Q3+3*IQR): 3
+  top 5 tax_acres: [49.77000045776367, 64.38999938964844, 75.41000366210938, 93.61000061035156, 102.58999633789062]
+
+  digitization assignment:
+digitization  0.0  1.0
+fin_yr phase          
+2006.0 1.0      6    0
+       2.0      9    0
+       3.0      5    0
+2007.0 1.0      8    0
+       2.0      9    0
+       3.0      5    0
+2008.0 1.0      2    0
+       2.0      6    0
+       3.0      3    0
+2009.0 1.0      9    0
+       2.0     13    0
+       3.0     12    0
+2010.0 1.0      9    0
+       2.0     12    0
+       3.0     10    0
+2011.0 1.0      8    0
+       2.0     13    0
+       3.0     11    0
+2012.0 1.0      0   10
+       2.0     11    0
+       3.0     12    0
+2013.0 1.0      0   11
+       2.0      0   13
+       3.0     12    0
+  → Phase 1 first treated FY2012; phase 2 first treated FY2012/2013; phase 3 never treated in sample.
+
+[2] Tax_District_Yr_stacked.dta — stacked DID
+  rows=404  events=[np.float32(1.0), np.float32(100.0)]
+  per event: {1.0: 206, 100.0: 198}
+
+[3] reportedcultivated.dta
+  rows=214  years=[np.int16(2007), np.int16(2008), np.int16(2010), np.int16(2011), np.int16(2012), np.int16(2013)]
+  Actual_Area000Acres mean=1092.8, median=1028.5
+  ln_area range: [5.44, 7.73]
+
+[4] NDVI_2006_2014.dta
+  rows=288  districts=36  expected balanced 36*8=288
+  NDVI_veg in [0,1]? min=0.200, max=0.740, mean=0.532
+
+[5] hh_level_data_hies.dta — household profit
+  rows=15767  cultivating sample=5986
+  profit_per_area_wins range: [-72.3, 186.4]  mean=29.7
+  HIES waves: [np.float32(2005.0), np.float32(2007.0), np.float32(2011.0), np.float32(2013.0)]
+  obs per wave: {2005.0: 1569, 2007.0: 1460, 2011.0: 1315, 2013.0: 1642}
+
+[6] secEFGB_3_25.dta — PSLM individual data
+  rows=340479  cols=154
+  ln_area non-missing: 161836
+  irrigation var (secF1_Q1_c4) values: {nan: 178675, 1.0: 141889, 2.0: 19907, 3.0: 8}
+  PSLM waves: [2006, 2008, 2010, 2012]
+
+[7] Bureaucrat_district_Yr.dta
+  rows=515  unique bureaucrats=105
+  cum_tax range: [0.0, 100.0]  mean=58.1
+  cum_tax > 100% obs: 0  (possible if late payments)
+  perf_dummy50 share: 0.60
+  perf_dummy75 share: 0.47
+
+[8] revcircle_yr.dta
+  rows=4542  rev circles=795  districts=36
+  share of computerization_id_dummy==1: 0.354
+  rev circles per district: min=9, max=44
+  tax_acres distribution:
+count    3974.000000
+mean        0.702070
+std         1.103816
+min         0.000000
+25%         0.103690
+50%         0.428671
+75%         0.952488
+max        38.185837
+
+[9] Pre-period (2006-2011) means by phase (T1=phase1, T2=phase2, control=phase3)
+            mean        std  count
+phase                             
+1.0     9.728697   9.069099     39
+2.0    16.236252  15.787568     62
+3.0    15.134265  19.615778     46
+
+[10] Missing data patterns
+  tax_acres: 7 missing (3.2%)
+  max_cdemand2_PKR: 9 missing (4.1%)
+  Actual_Area000Acres: 0 missing (0.0%)
+  Note: max_cdemand2_PKR has zeros which break log() in Table 4 col 2 — the Stata code does not pre-filter; statsmodels reports those rows as log(0)=-inf and the regression silently drops them.

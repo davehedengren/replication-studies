@@ -1,0 +1,111 @@
+=== papers_data.dta ===
+rows = 266
+columns = ['papertitle', 'year']
+year range = [1966, 2020]
+n papers per year (sorted):
+year
+1966     1
+2000     3
+2001     2
+2002     1
+2003     3
+2004     1
+2006     4
+2007     8
+2008     4
+2009     3
+2010    10
+2011    15
+2012    15
+2013    16
+2014    13
+2015    26
+2016    23
+2017    20
+2018    19
+2019    36
+2020    43
+
+rows with year==1966: 1
+rows after dropping 1966: 265
+paper appendix A.5 says Figure 1 uses 257 studies
+(released data gives 265 -- 8-paper discrepancy documented in writeup)
+
+duplicate papertitles: 0
+
+any missing year? 0
+any missing title? 0
+
+=== experimental_dataset.dta ===
+rows = 1219
+columns = ['child_2010_risk_all', 'child_2012_risk_all', 'child_2013_risk_all', 'dictator_giving2012', 'child_2010_all', 'child_2012_all', 'child_2013_all', 'age_in_month_at_exp_2012']
+
+non-null counts:
+child_2010_risk_all         170
+child_2012_risk_all         283
+child_2013_risk_all         439
+dictator_giving2012         288
+child_2010_all              178
+child_2012_all              286
+child_2013_all              440
+age_in_month_at_exp_2012    289
+
+summary stats:
+       child_2010_risk_all  child_2012_risk_all  child_2013_risk_all  dictator_giving2012  child_2010_all  child_2012_all  child_2013_all  age_in_month_at_exp_2012
+count             170.0000             283.0000             439.0000             288.0000        178.0000        286.0000        440.0000                  289.0000
+mean                0.4784               0.5400               0.6353               1.8750          0.3226          0.2564          0.3739                   62.7716
+std                 0.2126               0.3871               0.3393               1.6225          0.3454          0.3102          0.3635                    9.3995
+min                 0.1667               0.0000               0.0000               0.0000          0.0000          0.0000          0.0000                   46.0000
+25%                 0.2667               0.2500               0.5000               0.0000          0.0000          0.0000          0.0000                   55.0000
+50%                 0.4333               0.5000               0.7500               2.0000          0.2500          0.0000          0.2500                   63.0000
+75%                 0.6333               1.0000               1.0000               3.0000          0.5000          0.3333          0.7500                   69.0000
+max                 1.0000               1.0000               1.0000               6.0000          1.0000          1.0000          1.0000                   92.0000
+
+child_2010_all: min=0.0000, max=1.0000, n outside [0,1]=0
+child_2012_all: min=0.0000, max=1.0000, n outside [0,1]=0
+child_2013_all: min=0.0000, max=1.0000, n outside [0,1]=0
+child_2010_risk_all: min=0.1667, max=1.0000, n outside [0,1]=0
+child_2012_risk_all: min=0.0000, max=1.0000, n outside [0,1]=0
+child_2013_risk_all: min=0.0000, max=1.0000, n outside [0,1]=0
+dictator_giving2012: min=0.0, max=6.0, unique=[np.float64(0.0), np.float64(1.0), np.float64(2.0), np.float64(3.0), np.float64(4.0), np.float64(5.0), np.float64(6.0)]
+(should be integer 0-6: children share from 0 to 6 stickers)
+age_in_month_at_exp_2012: min=46.0, max=92.0, median=63.0
+
+Wave coverage for time preference:
+  only 2010  : 124
+  only 2012  : 191
+  only 2013  : 399
+  2010+2012  : 54
+  2010+2013  : 0
+  2012+2013  : 41
+  all 3 waves: 0
+  none       : 410
+
+Source wave for 'time' (first non-missing across 2010→2012→2013):
+none    410
+2013    399
+2012    232
+2010    178
+
+Mean 'time' by source wave:
+        mean     std  count
+src                        
+2010  0.3226  0.3454    178
+2012  0.2572  0.3139    232
+2013  0.3697  0.3640    399
+
+Age bin counts (Figure 4B):
+age_in_month_at_exp_2012
+[4.0, 4.5)     46
+[4.5, 5.0)     51
+[5.0, 5.5)     61
+[5.5, 6.0)     69
+[6.0, 6.5)     25
+[6.5, 10.0)    24
+(Fig 4B only shows ages 4–6.5; children ≥6.5 fall into the [6.5,10) bucket)
+
+N rows in file = 1219; rows with *any* time/risk signal:
+  any time measurement: 809
+  any risk measurement: 803
+  any dictator 2012    : 288
+  any age  2012        : 289

@@ -1,0 +1,4 @@
+conflict=1: quality=0.6190 (n=105); incentive=0.7870 (n=108); Z=2.6857; p=0.0072
+conflict=0: quality=0.8571 (n=42); incentive=0.8864 (n=44); Z=0.4056; p=0.6851
+
+See Incentive First coefficient (conflict, HC3): 0.1416 (SE 0.0616)

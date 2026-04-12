@@ -1,0 +1,29 @@
+======================================================================
+ ROBUSTNESS — Table 1 col 1 baseline: tax_acres = -6.57 (SE 3.69)
+======================================================================
+
+[Baseline]                          beta= -6.567  se=4.048  N=212  p=0.105
+
+[1] Alternative threshold: 12% villages digitized triggers treatment
+    digitization_12pc                beta= -6.173  se=3.219  N=212  p=0.055
+
+[2] Drop top-3 highest-mean tax districts beta= -5.920  se=3.864  N=196  p=0.126
+[3] Drop bottom-3 districts          beta= -6.471  se=4.957  N=195  p=0.192
+[4] Winsorize tax_acres at 1/99 pct  beta= -6.779  se=3.976  N=212  p=0.088
+[5] Trim top 5% of tax_acres         beta=-11.714  se=2.751  N=201  p=0.000
+[6] log(1+tax_acres) outcome         beta= -1.047  se=0.278  N=212  p=0.000
+
+[7] Drop phase 1 districts           beta=-11.721  se=5.467  N=156  p=0.032
+[8] Drop phase 2 districts           beta= -4.901  se=6.261  N=126  p=0.434
+[9] Restrict to fin_yr <= 2012       beta= -2.100  se=5.598  N=177  p=0.708
+
+[10] Leave-one-district-out (36 reps): min=-9.477  max=-5.280  mean=-6.567  median=-6.531
+     all 36 LOO betas remain negative? 36/36 (baseline -6.567)
+     district whose removal weakens effect most: 15
+
+[11] Permutation placebo (500 reps shuffling phase across districts):
+     baseline beta=-6.567,  null mean=0.082,  std=3.975,  two-sided p=0.108
+
+[12] Heterogeneity by pre-period tax level:
+     above median pre-tax  beta= -8.012  se=9.557  N=105
+     below median pre-tax  beta= -6.313  se=2.002  N=107

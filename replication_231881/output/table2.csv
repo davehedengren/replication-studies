@@ -1,0 +1,23 @@
+store,publisher,agency,mean_price,sd_price,n
+Amazon,Harper Collins,0,9.165083,3.4558213,4469
+Amazon,Harper Collins,1,10.818423,3.4427528,4949
+Amazon,Hachette,0,8.749586,2.444155,2395
+Amazon,Hachette,1,9.7910595,2.6680374,7264
+Amazon,Simon & Schuster,0,9.855739,2.9288635,2011
+Amazon,Simon & Schuster,1,11.574127,2.9176533,10375
+Amazon,Macmillan,0,8.651109,2.4459567,1302
+Amazon,Macmillan,1,9.944097,2.8364334,6549
+Amazon,Penguin Random House,0,9.062115,2.6090572,37473
+Amazon,Penguin Random House,1,12.069783,2.8075433,2738
+Amazon,Other publishers,0,8.701286,3.293405,21692
+B&N,Harper Collins,0,11.418633,4.2338853,5188
+B&N,Harper Collins,1,10.944961,3.3250797,4855
+B&N,Hachette,0,9.936085,2.8093476,2385
+B&N,Hachette,1,10.165725,2.6754696,6555
+B&N,Simon & Schuster,0,11.806732,2.9595976,2061
+B&N,Simon & Schuster,1,11.636031,2.6917539,9675
+B&N,Macmillan,0,10.295408,2.5030484,1317
+B&N,Macmillan,1,10.011935,2.7909172,6076
+B&N,Penguin Random House,0,11.032934,2.728528,35430
+B&N,Penguin Random House,1,12.211608,2.6439154,2935
+B&N,Other publishers,0,9.789851,3.7477803,22469

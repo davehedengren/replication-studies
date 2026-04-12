@@ -1,0 +1,41 @@
+======================================================================
+A. NoChoice robustness
+======================================================================
+  Baseline (published)                     Δ=+16.80pp (N=213, Z=2.69, p=0.007)
+  A1: Include inattentive participants     Δ=+17.24pp (N=232, Z=2.86, p=0.004)
+  A2: Trim 5% outer stdalpha               Δ=+16.80pp (N=213, Z=2.69, p=0.007)
+  A3: Permutation test (B=2000)          Δ=+16.80pp, p_perm=0.0100
+  A4: Logit (conflict)                  β=+0.789, p=0.0179
+
+======================================================================
+B. Table 2 Col 1: cost-shift robustness
+======================================================================
+  Baseline                                      seeIFC=-0.139 (t=-7.84); seeQFC=+0.152 (t=+5.17)
+  B1: Professionals only                        seeIFC=+0.000 (t=+9.13); seeQFC=+0.000 (t=+3.52)
+  B2: AMT only                                  seeIFC=-0.139 (t=-7.83); seeQFC=+0.152 (t=+5.18)
+  B3: Drop wave 3                               seeIFC=-0.145 (t=-7.52); seeQFC=-0.000 (t=-4.98)
+  B4: HC1 SE instead of HC3                     seeIFC=-0.139 (t=-7.84); seeQFC=+0.152 (t=+5.18)
+  B5: Logit                                     seeIFC=-0.568 (z=-7.75); seeQFC=+0.631 (z=+5.11)
+
+======================================================================
+C. Table 3 Col 1: 19.5pp prefer-incentive gap
+======================================================================
+  Baseline                                      choicebefore=+0.195 (t=+12.17) N=4448
+  C1: Drop professionals                        choicebefore=+0.186 (t=+10.76) N=3915
+  C2: ChoiceFree only                           choicebefore=+0.235 (t=+9.53) N=1931
+  C3: Costless only                             choicebefore=+0.240 (t=+11.26) N=2464
+  C4: Permutation Δ=+19.79pp  p_perm=0.0000
+  C5: No-conflict placebo gap                   choicebefore=+0.060 (t=+2.99) N=1325
+  C6: female only                               choicebefore=+0.194 (t=+8.91) N=2430
+  C6: male only                                 choicebefore=+0.199 (t=+8.28) N=2018
+
+======================================================================
+D. Stakes experiment: preferences respond to incentive size
+======================================================================
+  N stakes = 1472
+  Share prefer incentive first by condition:
+                              mean  count
+condition                                
+PayBeforeLowCommission    0.130435    483
+PayBefore_HighCommission  0.437238    478
+PayBefore_main            0.407045    511

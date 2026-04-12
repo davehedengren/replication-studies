@@ -1,0 +1,14 @@
+NoChoice-SeeIncentiveFirst             152
+NoChoice-AssessQualityFirst            147
+ChoiceFree                            2574
+ChoiceFree-Professionals               712
+IncentiveFirstCostly                  1562
+QualityFirstCostly                    1067
+ChoiceFree-HighStakes10fold            275
+ChoiceFree-HighStakes100fold           110
+Stakes-PayBeforeLowCommission          483
+Stakes-PayBefore_HighCommission        478
+Stakes-PayBefore_main                  511
+IA-Advisor                             245
+IA-Client                              253
+TOTAL                                 8569

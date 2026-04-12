@@ -1,0 +1,92 @@
+========================================================================
+INTRODUCTION — page 5
+========================================================================
+Avg guess about own score, low-scorers (test_score<4): 71.5%  [paper: 71.5%]
+
+========================================================================
+SECTION II — page 10: sample sizes, payoffs, test scores
+========================================================================
+Number of subjects in main treatments: 672  [paper: ~672]
+Participants per treatment (period 1): {'Baseline': 254, 'InformedBottom': 230, 'InformedTop': 188}
+Median hourly wage: $10.91
+Median total time: 18 minutes
+Median test score (main): 4.0
+  Baseline: median test_score = 4.0
+  InformedTop: median test_score = 4.0
+  InformedBottom: median test_score = 3.0
+
+========================================================================
+TABLE 1 — First-order belief accuracy
+========================================================================
+Col 1 (dist from Bayes):  N=20160, clusters=672
+  Intercept         b= 0.4148  SE=0.0181  p=1.287e-116
+  informed_top      b=-0.0073  SE=0.0186  p=0.6969
+  informed_bottom   b= 0.0114  SE=0.0174  p=0.5108
+  test_score        b=-0.0290  SE=0.0031  p=2.533e-20
+Col 2 (normalized guess1): N=20160, clusters=672
+  Intercept         b= 0.4971  SE=0.0201  p=1.76e-134
+  informed_top      b= 0.0069  SE=0.0217  p=0.7513
+  informed_bottom   b=-0.0137  SE=0.0199  p=0.4929
+  test_score        b= 0.0288  SE=0.0037  p=4.706e-15
+
+p10: test_score coef on dist_bayes: p = 2.53e-20  [paper: P<0.001]
+p10: test_score coef on normalized g1: p = 4.71e-15  [paper: P<0.001]
+p10: smallest treatment p-value across both cols: 0.493  [paper: 0.493]
+
+========================================================================
+FOOTNOTE 12 — share of first-order guesses at 0.5
+========================================================================
+% of first-order beliefs equal to 0.5: 13.4%
+# subjects always reporting guess1=0.5 (main sample): 17 / 672
+Share where guess1=0.5 & guess2=0.5: 71.4%  [paper: 71.4%]
+
+  Share guess1 ≠ guess2 in Baseline: 52.9%
+  Share guess1 ≠ guess2 in InformedTop: 50.8%
+  Share guess1 ≠ guess2 in InformedBottom: 65.6%
+
+========================================================================
+TABLE 2 — Mean perceived disagreement & direction by treatment
+========================================================================
+  Baseline         pdis=0.1094  dirpdis=0.0934
+  InformedTop      pdis=0.1081  dirpdis=0.0889
+  InformedBottom   pdis=0.1431  dirpdis=0.1132
+
+KS tests, period=1, subject-level means:
+  Base vs Bottom — pdis:   KS p = 9.933e-05
+  Base vs Bottom — dirpdis: KS p = 0.002988
+  Larger of two p-vals (paper: < 0.01): 0.002988
+  Base vs Top    — pdis:   KS p = 0.8955
+  Base vs Top    — dirpdis: KS p = 0.9891
+  Smallest of two p-vals (paper: 0.917): 0.8955
+
+========================================================================
+TABLE 3 — Treatment effects on disagreement measures
+========================================================================
+{'col': 'Perceived dis.', 'N': 20160, 'informed_top': '-0.0001', 'informed_top_p': '0.9915', 'informed_bottom': '0.0273', 'informed_bottom_p': '0.0312', 'test_score': '-0.0094', 'test_score_p': '2.64e-06'}
+{'col': 'Direction', 'N': 17455, 'informed_top': '-0.0052', 'informed_top_p': '0.6957', 'informed_bottom': '0.0186', 'informed_bottom_p': '0.1805', 'test_score': '-0.0056', 'test_score_p': '0.01046'}
+{'col': 'Actual dis.', 'N': 20160, 'informed_top': '0.0057', 'informed_top_p': '0.7389', 'informed_bottom': '0.0104', 'informed_bottom_p': '0.4779', 'test_score': '-0.0016', 'test_score_p': '0.5678'}
+{'col': 'Actual − perceived', 'N': 20160, 'informed_top': '0.0068', 'informed_top_p': '0.7375', 'informed_bottom': '-0.0153', 'informed_bottom_p': '0.4107', 'test_score': '0.0078', 'test_score_p': '0.01643'}
+
+p15: smallest p-value for InformedTop across Table 3: 0.696  [paper: 0.696]
+p15: InformedBottom on pdis, p = 0.0312  [paper: <0.05]
+ATE of InformedBottom on perceived disagreement: 3.4 pp  [paper: 3.4 pp]
+Relative increase vs Baseline: 30.8%  [paper: ~30%]
+
+KS: perceived vs actual disagreement by treatment (p16, paper: all <0.001)
+  Baseline         p = 7.219e-49
+  InformedTop      p = 2.519e-31
+  InformedBottom   p = 6.624e-36
+
+========================================================================
+TABLE 4 — Perceived disagreement by cognitive type
+========================================================================
+Col 1 pdis ~ HighCRT:  b=-0.0485  p=3.01e-06
+  abs pp = 4.85  [paper: 4.85]
+Col 3 dir_pdis ~ HighCRT: b=-0.0253  p=0.0256  [paper: 2.5 pp, p<0.05]
+
+========================================================================
+KS tests between cognitive types within treatment (pp.19-20)
+========================================================================
+  Baseline         pdis KS p=3.19e-05   dirpdis KS p=0.00585
+  InformedTop      pdis KS p=8.37e-06   dirpdis KS p=0.000244
+  InformedBottom   pdis KS p=0.0483   dirpdis KS p=0.856
