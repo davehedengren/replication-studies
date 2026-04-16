@@ -738,9 +738,110 @@ def build_panel(
 # Python translation of the Stata `run_and_plot_lp` program in lp.do.
 #
 # The Stata code uses xtscc (Driscoll-Kraay standard errors) for inference.
-# Here we use linearmodels PanelOLS with entity (country) fixed effects and
-# clustered standard errors by country, which is a common approximation.
+# We use linearmodels PanelOLS for point estimates (entity demeaning / FE),
+# then replace the covariance matrix with Driscoll-Kraay (1998) standard
+# errors computed from the entity-demeaned residuals and regressors. This
+# matches the original Stata xtscc approach: robust to both cross-sectional
+# dependence and serial correlation (HAC over time via Newey-West / Bartlett
+# kernel on cross-sectionally aggregated moment conditions).
 # =============================================================================
+
+
+def driscoll_kraay_cov(
+    y: np.ndarray,
+    X: np.ndarray,
+    time_ids: np.ndarray,
+    residuals: np.ndarray,
+    bandwidth: Optional[int] = None,
+) -> np.ndarray:
+    """
+    Compute Driscoll-Kraay (1998) covariance matrix for panel regression.
+
+    This implements the sandwich estimator where the "meat" is a Newey-West
+    HAC estimator applied to the cross-sectional sums of the moment
+    conditions (score vectors) aggregated to the time-period level.
+
+    The estimator is robust to:
+      - Arbitrary cross-sectional (spatial) dependence
+      - Serial correlation up to the specified bandwidth
+      - Heteroskedasticity
+
+    Parameters
+    ----------
+    y : np.ndarray, shape (N_obs,)
+        Dependent variable (entity-demeaned).
+    X : np.ndarray, shape (N_obs, k)
+        Regressors (entity-demeaned).
+    time_ids : np.ndarray, shape (N_obs,)
+        Time period identifier for each observation.
+    residuals : np.ndarray, shape (N_obs,)
+        OLS residuals from the entity-demeaned regression.
+    bandwidth : int or None
+        Newey-West bandwidth (number of lags). If None, uses
+        floor(T^(1/3)) which is the default in Stata's xtscc.
+
+    Returns
+    -------
+    np.ndarray, shape (k, k)
+        Driscoll-Kraay variance-covariance matrix of the coefficient
+        estimates.
+
+    Notes
+    -----
+    The procedure:
+      1. Compute score vectors: s_it = X_it * e_it for each observation.
+      2. Aggregate to time-period level: h_t = sum_i(s_it).
+      3. Apply Newey-West HAC to {h_t} with Bartlett kernel.
+      4. Form sandwich: V = (X'X)^{-1} S_HAC (X'X)^{-1}
+
+    This matches Stata's xtscc which uses the Bartlett kernel and
+    lag length floor(T^(1/3)) by default.
+    """
+    times = np.unique(time_ids)
+    times.sort()
+    T = len(times)
+    k = X.shape[1]
+
+    if bandwidth is None:
+        bandwidth = int(np.floor(T ** (1.0 / 3.0)))
+
+    # Map time_ids to sequential indices for fast lookup
+    time_to_idx = {t: i for i, t in enumerate(times)}
+    time_indices = np.array([time_to_idx[t] for t in time_ids])
+
+    # Step 1-2: Compute cross-sectional sums of score vectors for each t
+    # h_t = sum_i (X_it * e_it)
+    H = np.zeros((T, k))
+    scores = X * residuals[:, np.newaxis]  # (N_obs, k)
+    for t_idx in range(T):
+        mask = time_indices == t_idx
+        H[t_idx] = scores[mask].sum(axis=0)
+
+    # Step 3: Apply Newey-West HAC to H
+    # S = sum_{j=-m}^{m} kernel(j/(m+1)) * Gamma_j
+    # where Gamma_j = sum_t h_t h_{t-j}' (for j >= 0) or h_{t+|j|} h_t' (for j < 0)
+    # Bartlett kernel: w(j) = 1 - |j| / (m + 1)
+    S = np.zeros((k, k))
+
+    for j in range(bandwidth + 1):
+        weight = 1.0 - j / (bandwidth + 1.0)  # Bartlett kernel
+        # Gamma_j = sum_{t=j}^{T-1} h_t * h_{t-j}'
+        Gamma_j = np.zeros((k, k))
+        for t in range(j, T):
+            Gamma_j += np.outer(H[t], H[t - j])
+
+        if j == 0:
+            S += weight * Gamma_j
+        else:
+            # Add both Gamma_j and Gamma_j' (for negative lags)
+            S += weight * (Gamma_j + Gamma_j.T)
+
+    # Step 4: Sandwich formula: V = (X'X)^{-1} S (X'X)^{-1}
+    XtX = X.T @ X
+    XtX_inv = np.linalg.inv(XtX)
+    V = XtX_inv @ S @ XtX_inv
+
+    return V
 
 # Dependent variable transformation type mapping (from lp.do)
 DEPVAR_DIFFTYPE = {
@@ -881,9 +982,10 @@ def run_local_projection(
       3. Use clustered standard errors by country
 
     This is a Python translation of the estimation loop in lp.do. The Stata
-    code uses xtscc (Driscoll-Kraay standard errors). Here we use
-    linearmodels.PanelOLS with entity fixed effects and clustered SEs by country,
-    which is a reasonable approximation.
+    code uses xtscc (Driscoll-Kraay standard errors). We use PanelOLS for
+    point estimates (entity demeaning) and then compute Driscoll-Kraay (1998)
+    standard errors from the demeaned residuals and regressors, matching the
+    original Stata xtscc inference.
 
     Parameters
     ----------
@@ -909,6 +1011,9 @@ def run_local_projection(
           'over_preshock_pop', 'change', 'level'.
     cluster_var : str
         Variable to cluster standard errors on (default: 'iso').
+        Note: Driscoll-Kraay SEs are now used by default (matching Stata
+        xtscc). This parameter is retained for compatibility but is not
+        used when Driscoll-Kraay SEs are computed.
     time_fe : bool
         Include year fixed effects in addition to country FE (default: False).
     custom_controls : list of str or None
@@ -1033,7 +1138,8 @@ def run_local_projection(
             )
 
         try:
-            res = model.fit(cov_type="clustered", cluster_entity=True)
+            # Fit with unadjusted SEs first (we replace cov with DK below)
+            res = model.fit(cov_type="unadjusted")
         except Exception as e:
             warnings.warn(
                 f"Horizon {h}: estimation failed: {e}",
@@ -1051,9 +1157,48 @@ def run_local_projection(
             })
             continue
 
-        # Store full coefficient vector and variance-covariance matrix
+        # Compute Driscoll-Kraay standard errors from demeaned data
+        # PanelOLS with entity_effects demeans within entities. We need
+        # the demeaned y and X plus the time index to compute DK SEs.
+        #
+        # res.resids gives residuals from the entity-demeaned regression.
+        # We reconstruct the demeaned X by demeaning within entity groups.
+        resid_vals = res.resids.values.flatten()
+
+        # Get the panel index (entity, time) from the regression data
+        # reg_df is already indexed by (iso, year)
+        reg_time_ids = reg_df.index.get_level_values(1).values
+
+        # Entity-demean X to match what PanelOLS estimated on
+        X_raw = reg_df[rhs_vars].values
+        entity_ids_reg = reg_df.index.get_level_values(0).values
+        unique_entities = np.unique(entity_ids_reg)
+        X_demeaned = X_raw.copy().astype(float)
+        y_demeaned = reg_df[lhs_col].values.copy().astype(float)
+        for ent in unique_entities:
+            mask = entity_ids_reg == ent
+            X_demeaned[mask] -= X_demeaned[mask].mean(axis=0)
+            y_demeaned[mask] -= y_demeaned[mask].mean()
+
+        # If time_effects are included, also remove time means
+        if time_fe:
+            unique_times = np.unique(reg_time_ids)
+            for t in unique_times:
+                mask = reg_time_ids == t
+                X_demeaned[mask] -= X_demeaned[mask].mean(axis=0)
+                y_demeaned[mask] -= y_demeaned[mask].mean()
+
+        dk_vcov = driscoll_kraay_cov(
+            y=y_demeaned,
+            X=X_demeaned,
+            time_ids=reg_time_ids,
+            residuals=resid_vals,
+            bandwidth=None,  # floor(T^(1/3)) default, matching xtscc
+        )
+
+        # Store full coefficient vector and Driscoll-Kraay cov matrix
         coef_dict = dict(res.params)
-        vcov = res.cov.values
+        vcov = dk_vcov
         param_names = list(res.params.index)
 
         # For the results table, report the first xvar coefficient as the

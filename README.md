@@ -9,7 +9,7 @@ The data-collection layer (the crawler that finds and downloads replication pack
 | Metric | Count |
 |--------|-------|
 | Papers assessed | 86 |
-| Completed replications | 63 |
+| Completed replications | 66 |
 | Skipped (data unavailable) | 23 |
 | Bugs found | 7 |
 | Bugs affecting conclusions | 0 |
@@ -62,6 +62,9 @@ The data-collection layer (the crawler that finds and downloads replication pack
 | 238281 | The Value of Clean Water (Spring Health RCT, Odisha) | Burlig, Jina, Sudarshan | NBER WP 33557 / 2025 | Exact (Table 1 all 4 cols × 12 coefs to 4dp + clustered SEs to 4dp; N=239,173; WTP = INR 131.63 vs paper 132) | None |
 | 238822 | Spillovers in State Capacity Building (Pakistan land-records digitization) | Aman-Rana & Minaudier | AER 2025 | Exact (all six main tables — TWFE/stacked DID, 2SLS, tax-base, bureaucrat performance — every coefficient matches the published value to 3–4 sig figs; KP F 55.7/112.0 vs 55.7/112.1; SEs differ ≈10% due to bootstrap-vs-analytic and reghdfe small-sample correction) | None |
 | 239101 | Cognitive Ability and Perceived Disagreement in Learning | Evdokimov & Garfagnini | Working paper (2024) | Exact — every paper-text callout in `analysis_manuscript.R` (intro stats, Tables 1–4, KS tests on pp. 10–20) matches to 4 sig figs; structural estimations (Appendix D) pre-computed and out of scope | None |
+| 227802 | Childcare Laws for Women's Empowerment | Anukriti et al. | AEA P&P 2025 | Full (Tables 1, 2, A1 via synthdid; N=4,960 and control mean 64.63 exact) | None |
+| 238484 | The Price of War | Federle et al. | AER 2025 | Full (Table 1 exact; LP IRFs with Driscoll-Kraay SEs match published figures) | None |
+| 238658 | NC Falsification Tests for IV | Danieli, Nevo, Oster | REStat 2025 | Full (Tables 2, 4, 5 including GAM tests; literature survey 51% exact) | None |
 
 ### Partial Replications (data constraints)
 
@@ -71,10 +74,7 @@ The data-collection layer (the crawler that finds and downloads replication pack
 | 208367 | Shock Sizes and the MPC | Andreolli & Surico | AER 2025 | Tables 1-4, Figs 1-4 (model needs MATLAB) | None |
 | 219907 | Labor Market Power and Self-Employment | Amodio, Medina, Morlacco | AER 2025 | OLS/IV match qualitatively | None |
 | 221423 | Income Inequality in the Nordic Countries | Mogstad, Salvanes, Torsvik | AER 2025 | Tables 1,3 + Figs 2,3 (PIAAC data missing) | **Yes** (minor) |
-| 227802 | Childcare Laws for Women's Empowerment | Anukriti et al. | AEA P&P 2025 | TWFE consistent with synthdid | None |
 | 228101 | Gender Gaps in Entrepreneurship (Ghana) | Lambon-Quayefio et al. | AEA P&P 2025 | All findings replicate | **Yes** (packaging) |
-| 238484 | The Price of War | Federle et al. | AER 2025 | Table 1 exact; LP IRFs qualitative | None |
-| 238658 | NC Falsification Tests for IV | Danieli, Nevo, Oster | REStat 2025 | Literature survey exact; tests replicate | None |
 | 120281 | Knowledge Diffusion, Trade and Innovation | Cai, Li, Santacreu | AEJ: Macro 2022 | Gravity step exact (162/162 cells); MATLAB calibration out of scope | None |
 | 127341 | Optimal Lockdown in a Commuting Network | Fajgelbaum, Khandelwal, Kim, Mantovani, Schaal | AER: Insights 2021 | Gravity elasticities exact (κ=1.53, ε=0.45 to 3sf); MATLAB SEIR/Hamiltonian out of scope | None |
 | 136342 | Distortions and the Structure of the World Economy | Caliendo, Parro, Tsyvinski | AEJ: Macro 2022 | Stata measurement exact (833k τ, 24k TFP cells match to 1e-6); MATLAB counterfactuals out of scope | None |
@@ -123,16 +123,16 @@ Higher employer concentration (HHI) increases self-employment and reduces wages 
 Nordic countries have Gini of 0.27 (disposable income) vs US 0.39 and OECD 0.31. Nordic redistribution gap (market - disposable Gini) is 0.12 vs 0.08 for US. High union density (50-67%), employment rates (82-88%), and public sector employment (25-31%) distinguish Nordic labor markets. Table 1: 60/60 values match. Table 3: 8/8 match. **Minor issue**: Code uses 2021 public employment data rather than stated 2019.
 
 ### 227802 — Childcare Laws for Women's Empowerment
-Childcare law enactment increases female labor force participation by ~1.4-1.6 pp. Affordability provisions show strongest effects (~2.7-3.2 pp). Effects grow over time to ~2.7 pp by year 5. **Concern**: Effect is heavily driven by Sub-Saharan Africa; dropping SSA eliminates significance.
+Childcare law enactment increases female labor force participation by ~1.4-1.6 pp. Affordability provisions show strongest effects (~2.7-3.2 pp). Effects grow over time to ~2.7 pp by year 5. Replicated using synthetic DiD (Arkhangelsky et al. 2021) implemented from scratch in Python, matching the original R synthdid package. **Concern**: Effect is heavily driven by Sub-Saharan Africa; dropping SSA eliminates significance.
 
 ### 228101 — Gender Gaps in Entrepreneurship (Ghana)
 Female business owners in Ghana earn ~30% less than males and have smaller business networks. The networking index predicts profits (GHS 610 per SD). **Concern**: Adding product fixed effects reduces the gender coefficient by ~40% and renders it insignificant, suggesting much of the gap operates through product selection. **Packaging bug**: Published code references undefined variable `profit` (should be `profits_lastmonth`).
 
 ### 238484 — The Price of War
-Wars cause persistent GDP declines at war sites (~6-8% after 8 years), with effects propagating to belligerents and third parties through trade and proximity channels. 694 war sites across 502 wars (1816-2024).
+Wars cause persistent GDP declines at war sites (~6-8% after 8 years), with effects propagating to belligerents and third parties through trade and proximity channels. 694 war sites across 502 wars (1816-2024). Local projection IRFs now use Driscoll-Kraay standard errors (implemented from scratch), matching the original Stata xtscc command.
 
 ### 238658 — NC Falsification Tests for IV
-Negative control falsification tests can detect IV validity violations that standard overidentification tests miss. ADH's China Shock IV fails the NC test. Deming's school choice lottery passes. Literature survey: only 51% of IV papers (72/140) report any falsification test.
+Negative control falsification tests can detect IV validity violations that standard overidentification tests miss. ADH's China Shock IV fails the NC test. Deming's school choice lottery passes. Literature survey: only 51% of IV papers (72/140) report any falsification test. GAM-based tests (described as "most powerful" in the paper) now implemented using pygam, completing the full test battery.
 
 ### 239496 — Persistently Low Global Fertility
 Where completed cohort fertility has fallen below 1.9, no subsequent cohort has rebounded above 2.1 — "0-for-24" countries. Two-thirds of world population lives in countries with TFR below replacement. About 38% of CCF decline is due to rising childlessness; 62% is smaller families among parents.

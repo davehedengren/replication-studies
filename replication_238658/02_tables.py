@@ -13,7 +13,8 @@ from scipy import stats
 from utils import (OUTPUT_DIR, load_adh, load_adh_preperiod, load_deming,
                    load_ashraf_galor, load_nunn_qian, load_literature_survey,
                    nc_f_test, nc_bonferroni, nc_wald_test,
-                   reduced_form_bonferroni, reduced_form_wald)
+                   reduced_form_bonferroni, reduced_form_wald,
+                   nc_gam_test, reduced_form_gam_test)
 
 def fmt_p(p):
     """Format p-value for display."""
@@ -136,6 +137,10 @@ print(f"  Bonferroni p-value: {fmt_p(bonf_pval)}")
 # --- Wald test (Z ~ NC + controls, cluster-robust) ---
 wald_pval, wald_stat = nc_wald_test(IV, NCs, cntrls, weights, cluster)
 print(f"  Wald test p-value: {fmt_p(wald_pval)}")
+
+# --- GAM test (NC_i = s(Z) + controls, spline on Z) ---
+gam_pval, gam_pvals = nc_gam_test(IV, NCs, cntrls, weights)
+print(f"  GAM test p-value: {fmt_p(gam_pval)}")
 
 # --- Single NCO (lagged outcome 1970) ---
 if 'outcome1970' in china_1990.columns:
@@ -314,6 +319,14 @@ for nc_name in nc_vars:
     p_sq = model.pvalues[2]
     print(f"    {nc_name}: linear p={fmt_p(p_lin)}, squared p={fmt_p(p_sq)}")
 
+# --- GAM test without IV adjustment ---
+print("\n  GAM test without IV adjustment (reduced form):")
+NCs_ag_all = ag_clean[nc_vars].values
+gam_p_ag, gam_pvals_ag = reduced_form_gam_test(Y_ag, NCs_ag_all, ag_controls)
+for j, nc_name in enumerate(nc_vars):
+    print(f"    {nc_name}: GAM p={fmt_p(gam_pvals_ag[j])}")
+print(f"    Bonferroni-corrected GAM p: {fmt_p(gam_p_ag)}")
+
 # --- With IV adjustment: outcome ~ NC + NC^2 + IV + IV^2 + controls ---
 print(f"\n  With IV adjustment (controlling for mdist_hgdp, N={n_with_iv}):")
 ag_iv = ag_clean[has_iv].reset_index(drop=True)
@@ -363,6 +376,18 @@ if joint_ncs:
 
     print(f"    Wald p-value: {fmt_p(wald_p)}")
     print(f"    Bonferroni p-value: {fmt_p(bonf_joint)}")
+
+# --- GAM test with IV adjustment ---
+print(f"\n  GAM test with IV adjustment (N={n_with_iv}):")
+nc_vars_iv = [v for v in nc_vars if v in ag_iv.columns and ag_iv[v].notna().all()]
+if nc_vars_iv:
+    NCs_ag_iv_all = ag_iv[nc_vars_iv].values
+    ag_ctrl_with_iv = np.column_stack([IV_vals, IV_sq_vals, ag_ctrl_iv])
+    gam_p_ag_iv, gam_pvals_ag_iv = reduced_form_gam_test(
+        Y_ag_iv, NCs_ag_iv_all, ag_ctrl_with_iv)
+    for j, nc_name in enumerate(nc_vars_iv):
+        print(f"    {nc_name}: GAM p={fmt_p(gam_pvals_ag_iv[j])}")
+    print(f"    Bonferroni-corrected GAM p: {fmt_p(gam_p_ag_iv)}")
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -454,6 +479,10 @@ print(f"    Bonferroni p-value: {fmt_p(bonf_p_nq)}")
 wald_p_nq, _ = reduced_form_wald(Y_nq, NCs_nq, cntrls_nq, cluster=cluster_nq)
 print(f"    Wald p-value: {fmt_p(wald_p_nq)}")
 
+# Reduced-form GAM test (without IV adjustment)
+gam_p_nq, gam_pvals_nq = reduced_form_gam_test(Y_nq, NCs_nq, cntrls_nq)
+print(f"    GAM test p-value: {fmt_p(gam_p_nq)}")
+
 # --- With IV adjustment (add instrument to controls) ---
 print("\n  With IV adjustment:")
 iv_nq = nq_sub['instrument'].values.reshape(-1, 1)
@@ -467,6 +496,10 @@ print(f"    Bonferroni p-value: {fmt_p(bonf_p_nq2)}")
 
 wald_p_nq2, _ = reduced_form_wald(Y_nq, NCs_nq, cntrls_nq_adj, cluster=cluster_nq)
 print(f"    Wald p-value: {fmt_p(wald_p_nq2)}")
+
+# Reduced-form GAM test (with IV adjustment)
+gam_p_nq2, gam_pvals_nq2 = reduced_form_gam_test(Y_nq, NCs_nq, cntrls_nq_adj)
+print(f"    GAM test p-value: {fmt_p(gam_p_nq2)}")
 
 # Individual NCIV p-values (highlight Grapes)
 print("\n  Individual NCIV p-values (without IV adj):")

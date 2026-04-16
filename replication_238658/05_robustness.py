@@ -22,7 +22,8 @@ from scipy import stats
 from utils import (OUTPUT_DIR, load_adh, load_adh_preperiod,
                    load_ashraf_galor, load_nunn_qian,
                    nc_f_test, nc_bonferroni, nc_wald_test,
-                   reduced_form_bonferroni, reduced_form_wald)
+                   reduced_form_bonferroni, reduced_form_wald,
+                   nc_gam_test, reduced_form_gam_test)
 
 
 def fmt_p(p):
@@ -162,11 +163,13 @@ for spec_name, ctrl_list in specs:
     f_p, _ = nc_f_test(IV, NCs, ctrl_vals, weights)
     bonf_p, _ = nc_bonferroni(IV, NCs, ctrl_vals, weights, cluster)
     wald_p, _ = nc_wald_test(IV, NCs, ctrl_vals, weights, cluster)
+    gam_p, _ = nc_gam_test(IV, NCs, ctrl_vals, weights)
 
     print(f"\n  {spec_name} ({len(ctrl_list)} controls):")
     print(f"    F-test p:      {fmt_p(f_p)}")
     print(f"    Bonferroni p:  {fmt_p(bonf_p)}")
     print(f"    Wald p:        {fmt_p(wald_p)}")
+    print(f"    GAM test p:    {fmt_p(gam_p)}")
 
     results.append({
         'Check': '1. Alt controls',
@@ -174,6 +177,7 @@ for spec_name, ctrl_list in specs:
         'F-test': fmt_p(f_p),
         'Bonferroni': fmt_p(bonf_p),
         'Wald': fmt_p(wald_p),
+        'GAM': fmt_p(gam_p),
     })
 
 
@@ -273,21 +277,25 @@ print("=" * 70)
 f_p_uw, _ = nc_f_test(IV, NCs, cntrls, weights=None)
 bonf_p_uw, _ = nc_bonferroni(IV, NCs, cntrls, weights=None, cluster=cluster)
 wald_p_uw, _ = nc_wald_test(IV, NCs, cntrls, weights=None, cluster=cluster)
+gam_p_uw, _ = nc_gam_test(IV, NCs, cntrls, weights=None)
 
 print(f"\n  Unweighted:")
 print(f"    F-test p:      {fmt_p(f_p_uw)}")
 print(f"    Bonferroni p:  {fmt_p(bonf_p_uw)}")
 print(f"    Wald p:        {fmt_p(wald_p_uw)}")
+print(f"    GAM test p:    {fmt_p(gam_p_uw)}")
 
 # Baseline (weighted) for comparison
 f_p_w, _ = nc_f_test(IV, NCs, cntrls, weights)
 bonf_p_w, _ = nc_bonferroni(IV, NCs, cntrls, weights, cluster)
 wald_p_w, _ = nc_wald_test(IV, NCs, cntrls, weights, cluster)
+gam_p_w, _ = nc_gam_test(IV, NCs, cntrls, weights)
 
 print(f"\n  Weighted (baseline):")
 print(f"    F-test p:      {fmt_p(f_p_w)}")
 print(f"    Bonferroni p:  {fmt_p(bonf_p_w)}")
 print(f"    Wald p:        {fmt_p(wald_p_w)}")
+print(f"    GAM test p:    {fmt_p(gam_p_w)}")
 
 results.append({
     'Check': '4. No weights',
@@ -295,6 +303,7 @@ results.append({
     'F-test': fmt_p(f_p_uw),
     'Bonferroni': fmt_p(bonf_p_uw),
     'Wald': fmt_p(wald_p_uw),
+    'GAM': fmt_p(gam_p_uw),
 })
 results.append({
     'Check': '4. No weights',
@@ -302,6 +311,7 @@ results.append({
     'F-test': fmt_p(f_p_w),
     'Bonferroni': fmt_p(bonf_p_w),
     'Wald': fmt_p(wald_p_w),
+    'GAM': fmt_p(gam_p_w),
 })
 
 

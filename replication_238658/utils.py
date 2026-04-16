@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 from scipy import stats
+from pygam import LinearGAM, s, l
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, '..', '238658-V1', 'Data_analysis')
@@ -255,3 +256,80 @@ def reduced_form_wald(Y, NCs, cntrls=None, weights=None, cluster=None):
     wald_stat = beta_nc @ np.linalg.pinv(vcov_nc) @ beta_nc
     p_value = 1 - stats.chi2.cdf(wald_stat, p)
     return p_value, wald_stat
+
+
+def nc_gam_test(Z, NC, cntrls=None, weights=None):
+    """
+    GAM-based NC test: NC_i = s(Z) + controls*beta + epsilon.
+    Tests H0: s(Z) = 0 for each NC.
+    Returns (bonferroni_p, individual_p_values).
+
+    Uses pygam's LinearGAM with a spline term on Z and linear terms on controls.
+    """
+    p = NC.shape[1]
+    pvals = []
+
+    for i in range(p):
+        nc_i = NC[:, i]
+
+        if cntrls is not None:
+            X = np.column_stack([Z.reshape(-1, 1), cntrls])
+            # s(0) = spline on Z (column 0), l(j) = linear for each control
+            terms = s(0, n_splines=10)
+            for j in range(1, cntrls.shape[1] + 1):
+                terms = terms + l(j)
+        else:
+            X = Z.reshape(-1, 1)
+            terms = s(0, n_splines=10)
+
+        gam = LinearGAM(terms)
+        if weights is not None:
+            gam.fit(X, nc_i, weights=weights)
+        else:
+            gam.fit(X, nc_i)
+
+        # p-value for the smooth term on Z (first term, index 0)
+        pval = gam.statistics_['p_values'][0]
+        pvals.append(pval)
+
+    min_p = min(pvals)
+    bonf_p = min(min_p * p, 1.0)
+    return bonf_p, pvals
+
+
+def reduced_form_gam_test(Y, NCs, cntrls=None, weights=None):
+    """
+    GAM-based reduced-form NC test: Y = s(NC_i) + controls*beta + epsilon.
+    Tests H0: s(NC_i) = 0 for each NC IV.
+    Returns (bonferroni_p, individual_p_values).
+
+    Used for Nunn-Qian and Ashraf-Galor where the test is on NC IVs
+    predicting the outcome (reduced form).
+    """
+    p = NCs.shape[1]
+    pvals = []
+
+    for i in range(p):
+        nc_i = NCs[:, i]
+
+        if cntrls is not None:
+            X = np.column_stack([nc_i.reshape(-1, 1), cntrls])
+            terms = s(0, n_splines=10)
+            for j in range(1, cntrls.shape[1] + 1):
+                terms = terms + l(j)
+        else:
+            X = nc_i.reshape(-1, 1)
+            terms = s(0, n_splines=10)
+
+        gam = LinearGAM(terms)
+        if weights is not None:
+            gam.fit(X, Y, weights=weights)
+        else:
+            gam.fit(X, Y)
+
+        pval = gam.statistics_['p_values'][0]
+        pvals.append(pval)
+
+    min_p = min(pvals)
+    bonf_p = min(min_p * p, 1.0)
+    return bonf_p, pvals

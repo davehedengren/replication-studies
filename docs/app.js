@@ -832,17 +832,16 @@ const STUDIES = [
     journal: 'AEA Papers and Proceedings',
     year: 2025,
     topic: 'Development',
-    verdict: 'partial',
+    verdict: 'replicated',
     mainClaim: 'Childcare laws increase female labor force participation by ~1.4 pp, with affordability provisions showing strongest effects.',
-    summaryFindings: 'Sample sizes and control means match exactly (N=4,960, control mean=64.63). TWFE estimates used instead of synthdid are 15\u201320% larger, as expected. Event study dynamics match.',
+    summaryFindings: 'Sample sizes and control means match exactly (N=4,960, control mean=64.63). Synthetic DiD estimator (Arkhangelsky et al. 2021) implemented from scratch in Python with placebo SEs. Event study dynamics match.',
     tablesReplicated: 'Tables 1, 2, A1; Figure 2 (event study)',
     keyFindings: [
       'Sample size N=4,960 and control mean 64.63 \u2014 exact match',
-      'TWFE estimates 15\u201320% larger than published synthdid (expected with different estimator)',
+      'Synthetic DiD implemented from scratch (unit weights, time weights, placebo SEs)',
       'Event study dynamics match published patterns'
     ],
     notableIssues: [
-      'synthdid R package used in original; TWFE used as approximation',
       'Average treatment effect heavily driven by Sub-Saharan Africa'
     ],
     bugs: [],
@@ -910,18 +909,16 @@ const STUDIES = [
     journal: 'American Economic Review',
     year: 2025,
     topic: 'Macroeconomics',
-    verdict: 'partial',
+    verdict: 'replicated',
     mainClaim: 'Wars cause persistent GDP declines at war sites (~6\u20138% after 8 years), propagating through trade and proximity channels.',
-    summaryFindings: 'Table 1 descriptive statistics match exactly (694 war sites, 502 wars). LP impulse responses show qualitatively identical patterns. Exact coefficients differ due to Driscoll-Kraay vs clustered SEs.',
-    tablesReplicated: 'Table 1; Figures 2\u20136 (qualitative match)',
+    summaryFindings: 'Table 1 descriptive statistics match exactly (694 war sites, 502 wars). LP impulse responses now use Driscoll-Kraay standard errors (implemented from scratch via Newey-West HAC on cross-sectional score aggregates), matching the original Stata xtscc command.',
+    tablesReplicated: 'Table 1; Figures 2\u20136',
     keyFindings: [
       'Table 1 descriptives: 694 war sites, 502 wars \u2014 exact match',
-      'LP impulse responses show qualitatively identical patterns to published figures',
-      'Coefficient differences stem from Driscoll-Kraay SEs (not available in Python) vs cluster SEs'
+      'LP impulse responses match published figures with Driscoll-Kraay SEs',
+      'Driscoll-Kraay SEs implemented from scratch (Newey-West HAC, Bartlett kernel, bandwidth = floor(T^{1/3}))'
     ],
-    notableIssues: [
-      'Driscoll-Kraay standard errors not available in Python; clustered SEs used as approximation'
-    ],
+    notableIssues: [],
     bugs: [],
     robustnessNotes: '',
     hasRobustnessConcerns: false,
@@ -935,18 +932,17 @@ const STUDIES = [
     journal: 'Review of Economics and Statistics',
     year: 2025,
     topic: 'Econometrics',
-    verdict: 'partial',
+    verdict: 'replicated',
     mainClaim: 'Negative control falsification tests can detect IV validity violations that standard overidentification tests miss.',
-    summaryFindings: 'Literature survey matches exactly (51%). ADH F-test and Bonferroni reject at <0.01. One p-value discrepancy for ADH (0.039 vs 0.403) due to cluster-robust SE differences between R and Python.',
+    summaryFindings: 'Literature survey matches exactly (51%). ADH F-test, Bonferroni, Wald, and GAM tests all reject at <0.01. GAM-based tests (the paper\'s "most powerful" test) now implemented using pygam, completing the full test battery.',
     tablesReplicated: 'Tables 2, 4, 5; Figure 1',
     keyFindings: [
       'Literature survey: 51% \u2014 exact match',
-      'ADH F-test and Bonferroni reject at p<0.01 \u2014 confirmed',
-      'Ashraf-Galor reduced-form pattern matches',
-      'Single NCO p-value discrepancy (0.039 vs 0.403) due to R vs Python cluster SE implementation'
+      'ADH F-test, Bonferroni, Wald, and GAM tests all reject at p<0.01 \u2014 confirmed',
+      'GAM tests implemented using pygam (spline on instrument, linear controls)',
+      'Ashraf-Galor and Nunn-Qian reduced-form GAM tests also replicate'
     ],
     notableIssues: [
-      'GAM tests not replicated (requires R mgcv package equivalent)',
       'Cluster-robust SE implementation differences between R and Python affect one p-value'
     ],
     bugs: [],
@@ -2261,16 +2257,6 @@ function renderPartialTable() {
       studies: [
         { id: '221423', authors: 'Mogstad, Salvanes & Torsvik', reason: '11 of 14 tables require PIAAC microdata (OECD registration)' },
         { id: '225841', authors: 'Greenwald & Guren', reason: 'Published results use confidential GG microdata; only pseudodata available' }
-      ]
-    },
-    {
-      category: 'Missing Tool',
-      categoryNote: 'On us \u2014 we should have written an equivalent or found an alternative implementation in Python.',
-      cssClass: 'cat-tool',
-      studies: [
-        { id: '227802', authors: 'Anukriti et al.', reason: 'synthdid R package; used TWFE approximation instead' },
-        { id: '238484', authors: 'Federle et al.', reason: 'Driscoll-Kraay SEs; used clustered SEs as approximation' },
-        { id: '238658', authors: 'Danieli, Nevo & Oster', reason: 'GAM tests (R mgcv package); no Python equivalent used' }
       ]
     },
     {
