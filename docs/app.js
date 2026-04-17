@@ -2066,13 +2066,25 @@ function renderSummary() {
 
     <h2>Coding Bugs Discovered</h2>
     <p>
-      AI-driven replication uncovered coding bugs in <strong>${bugsFound} papers (${Math.round(bugsFound/total*100)}%)</strong>:
+      AI-driven replication uncovered coding bugs in <strong>${bugsFound} papers (${Math.round(bugsFound/total*100)}%)</strong> &mdash;
+      errors in the original analysis code that peer review did not catch. Each card below links to the
+      full writeup with impact analysis.
     </p>
-    <ul>
+    <div class="bug-grid">
       ${STUDIES.filter(s => s.bugs.length > 0).map(s => `
-        <li><strong><a href="#study/${s.id}">${s.authors} (${s.year})</a>:</strong> ${s.bugs[0]}</li>
+        <a href="#study/${s.id}" class="bug-card">
+          <div class="bug-card-header">
+            <span class="badge badge-bug">Bug Found</span>
+            <span class="bug-meta">${s.year} &middot; #${s.id}</span>
+          </div>
+          <h3>${s.authors}</h3>
+          <p class="bug-paper-title">${s.title}</p>
+          <ul class="bug-list">
+            ${s.bugs.map(b => `<li>${b}</li>`).join('')}
+          </ul>
+        </a>
       `).join('')}
-    </ul>
+    </div>
     <p>
       None of these bugs changed the qualitative conclusions of the papers, but they represent
       meaningful quantitative discrepancies that traditional peer review did not catch.
