@@ -2302,8 +2302,7 @@ function renderPartialTable() {
     <p style="margin-top:0.75rem;">
       Of the ${partials.reduce((a, c) => a + c.studies.length, 0)} partial replications:
       <strong>${partials[0].studies.length}</strong> are due to restricted data (not our fault),
-      <strong>${partials[1].studies.length}</strong> are missing tools (our fault \u2014 we should have built them),
-      and <strong>${partials[2].studies.length}</strong> are replication package issues (on the original authors).
+      and <strong>${partials[1].studies.length}</strong> are replication package issues (on the original authors).
     </p>
   `;
 }
